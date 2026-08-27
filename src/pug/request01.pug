@@ -1,0 +1,44 @@
+extends ./layout/layout
+include ./components/breadcrumb.pug
+include ./components/stepIndicator.pug
+include ./components/alertBox.pug
+include ./mixin/radioCard.pug
+
+block content
+  main.request-page
+    .inner-box
+      .request-page__top
+        +breadcrumb(['홈페이지 제작', '제작신청'])
+        .request-page__header
+            +stepIndicator(1)
+            h2.request-page__title 홈페이지 제작 신청
+
+      section.request-section
+        h3.request-section__title 제작 신청 대상
+        .request-section__box
+          .request-sub-section
+            h4.request-sub-section__title 범농협 1.0 홈페이지 이관 제작
+            .radio-cards
+              +radioCard('target01', '홍보 및 쇼핑몰', '송파농협 가족쉼터', 'songnhst.nonghyup.com', null, true)
+
+          .request-sub-section
+            h4.request-sub-section__title 신규 홈페이지 제작
+            .radio-cards.radio-cards--cols3
+              +radioCard('target02', '홍보형', null, null, '농·축협 사무소 사이트 또는 사업/상품 홍보 목적으로 운영 시 적합한 홈페이지 (쇼핑몰 기능은 구독형 서비스로 신청하여 사용할 수 있습니다.)')
+              +radioCard('target03', '쇼핑형', null, null, '쇼핑몰 사이트 설명 쇼핑몰 사이트 설명 쇼핑몰 사이트 설명 쇼핑몰 사이트 설명 쇼핑몰 사이트 설명 쇼핑몰 사이트 설명')
+              +radioCard('target04', '문화센터형', null, null, '문화센터형 사이트 문화센터형 사이트 문화센터형 사이트 문화센터형 사이트 문화센터형 사이트 문화센터형 사이트 문화센터형 사이트')
+
+        +alertBox('운영 중인 범농협 1.0 사이트 정보가 표시되지 않은 경우와 문화센터형은 고객센터에서 문의해주세요.', '고객센터 바로 가기')
+
+      section.request-section
+        h3.request-section__title 제작 신청 완료
+        .completion-card
+          .completion-card__content
+            .completion-card__header
+              span.completion-card__category 쇼핑몰
+              strong.completion-card__title 송파농협 가족쉼터
+            span.completion-card__url songpa.nonghyup.com
+            a(href="#").completion-card__link 신청정보 바로 가기
+
+      .request-page__bottom
+        button.btn.btn--primary.btn--large(type="button") 다음

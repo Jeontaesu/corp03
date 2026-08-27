@@ -1,0 +1,141 @@
+extends ./layout/layout
+include ./components/breadcrumb.pug
+include ./components/stepIndicator.pug
+include ./mixin/radioCard.pug
+
+block content
+  main.request-page
+    .inner-box
+      .request-page__top
+        +breadcrumb(['홈페이지 제작', '제작신청'])
+        .request-page__header
+          +stepIndicator(2)
+          h2.request-page__title 홈페이지 정보
+
+      section.request-section
+        .form-table
+          .form-table__row
+            .form-table__label
+              span.name 신청 구분
+            .form-table__content
+              .info-text 범농협 1.0 홈페이지 이관 제작
+          
+          .form-table__row
+            .form-table__label
+              span.name 이관 대상 홈페이지
+            .form-table__content
+              p.info-text 홍보형 | 사이트명, OOO.nonghyup.com
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 홈페이지 유형
+            .form-table__content
+              .flex-group
+                p.info-text 홍보형 (쇼핑형 기능 추가)
+                button.btn.btn--dark-gray.btn--small.ml-10(type="button") 변경
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 홈페이지 이름
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", id="homepage_name", title="홈페이지 이름 입력")
+                em.ex 예시 : OO농협, OO농협 쇼핑몰
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 홈페이지 URL
+            .form-table__content
+              fieldset.url-selection-group
+                legend.sr-only 홈페이지 URL 설정 방식 선택
+                
+                .url-input-row
+                  .radio-wrap
+                    input.sr-only(type="radio", name="url_type", id="url_existing", checked)
+                    label.radio-label(for="url_existing") 기존
+                  .input-wrap
+                    input.input-text(type="text", id="existing_url_val", title="기존 홈페이지 URL 접두사 입력", aria-describedby="url_helper")
+                    span.url-suffix(aria-hidden="true") .nonghyup.com
+                
+                .url-input-row.mt-10
+                  .radio-wrap
+                    input.sr-only(type="radio", name="url_type", id="url_change")
+                    label.radio-label(for="url_change") 변경
+                  .input-wrap
+                    input.input-text(type="text", id="change_url_val", title="변경할 홈페이지 URL 접두사 입력", aria-describedby="url_helper")
+                    span.url-suffix(aria-hidden="true") .nonghyup.com
+                    button.btn.btn--dark-gray.btn--small.ml-10(type="button") 중복확인
+
+              p.helper-text.color-red#url_helper 
+                | * 별도 도메인 사용 시 기존 URL 선택하여 입력 후 별도 도메인은 ‘구독 서비스 신청’ 화면에서 신청해 주세요.
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 템플릿 선택
+              button.btn.btn--dark-gray.btn--small.mt-10(type="button") 템플릿 상세보기
+            .form-table__content
+              .template-selector
+                each val in [1, 2, 3, 4]
+                  label.template-item
+                    input.sr-only(type="radio", name="template", id=`temp_0${val}`, checked=(val===1))
+                    .template-item__box
+                      span.template-item__name 홍보형_0#{val}
+                      .template-item__img
+          
+          .form-table__row
+            .form-table__label
+              span.name 메인 비주얼 이미지 선택
+              button.btn.btn--dark-gray.btn--small.mt-10(type="button") 메인 이미지 상세보기
+            .form-table__content
+              .flex-group.mb-20
+                select.select-box(title="대분류 선택")
+                  option 대분류 선택
+                select.select-box.ml-10(title="중분류 선택")
+                  option 중분류 선택
+              
+              .template-selector
+                each val in [1, 2, 3, 4]
+                  label.template-item.visual
+                    input.sr-only(type="radio", name="main_visual", id=`visual_0${val}`, checked=(val===2))
+                    .template-item__box
+                      span.template-item__name 이미지명
+                      .template-item__img
+              
+              p.helper-text.color-red.mt-10 * 이미지 미선택 시 선택된 템플릿에 이미지로 제작됩니다.
+
+              .image-order-box
+                strong.image-order-box__title 이미지 순서
+                .image-order-list(data-js="sortable")
+                  each order, idx in ['첫번째', '두번째', '세번째']
+                    .image-order-item
+                      span.image-order-item__label #{order} 이미지
+                      select.select-box(title=`${order} 이미지 대분류 선택`)
+                        option 대분류
+                      select.select-box.ml-10(title=`${order} 이미지 중분류 선택`)
+                        option 중분류
+                      button.icon-drag-handle(type="button", title="순서 드래그 이동")
+                
+                .image-order-info
+                  p.helper-text * #[em.icon-drag]아이콘을 클릭하여 순서를 지정하세요.
+                  p.helper-text * 별도의 디자인 파일을 확보하시는 유지보수 게시판을 통해 문의 주세요.
+
+          .form-table__row
+            .form-table__label
+              span.name 메인 비주얼 문구
+              button.btn.btn--dark-gray.btn--small.mt-10(type="button") 문구 적용 예시
+            .form-table__content
+              input.input-text.mb-10.w-full(type="text", title="메인 비주얼 문구 1번 입력", placeholder="")
+              input.input-text.w-full(type="text", title="메인 비주얼 문구 2번 입력", placeholder="")
+              p.helper-text.color-red * 문구들 미 입력시 템플릿에 있는 문구로 제작됩니다.
+
+          .form-table__row
+            .form-table__label
+              span.name 제작 시 요청사항
+            .form-table__content
+              textarea.textarea-field(title="제작 시 요청사항 입력", placeholder="")
+
+      .request-page__bottom
+          .flex-group
+            button.btn.btn--light-blue.btn--large(type="button") 이전
+            button.btn.btn--primary.btn--large.ml-10(type="button") 다음
+          button.btn.btn--outline-blue.btn--medium(type="button") 임시저장

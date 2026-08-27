@@ -1,0 +1,13 @@
+mixin breadcrumb(items)
+  nav.breadcrumb(aria-label="breadcrumb")
+    ol.breadcrumb__list
+      li.breadcrumb__item
+        a(href="/").breadcrumb__link.breadcrumb__link--home
+          span.sr-only Home
+          i.icon-home
+      each item, index in items
+        li.breadcrumb__item
+          if index === items.length - 1
+            span.breadcrumb__text(aria-current="page")= item
+          else
+            a(href="#").breadcrumb__link= item

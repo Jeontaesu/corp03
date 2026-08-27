@@ -1,0 +1,6 @@
+mixin alertBox(text, buttonText)
+  .alert-box
+    .alert-box__content
+      p.alert-box__text= text
+    if buttonText
+      a(href="#").alert-box__button= buttonText

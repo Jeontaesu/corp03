@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="keywords", content="농협, 범농협, 홈페이지 제작, 운영지원센터")
+		meta(name="description", content="범농협 홈페이지 제작 및 운영지원센터입니다.")
+		link(rel="shortcut icon", href="../img/common/favicon.ico")
+		title 범농협 홈페이지 제작 및 운영지원센터
+		link(rel="stylesheet", href="../css/library.css")
+		link(rel="stylesheet", href="../css/style.css")
+		script(src="../js/libs/gsap.min.js")
+		script(src="../js/libs/jquery-3.7.1.min.js")
+		script(src="../js/libs/ScrollTrigger.min.js")
+		script(src="../js/libs/swiper.min.js")
+		script(src="../js/libs/Sortable.min.js")
+	body
+		div.wrap
+			include header
+			div
+				block content
+			include footer
+		script(src="../js/ui.js")
+		script(src="../js/animation.js")
+		block bottomScripts

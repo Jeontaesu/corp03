@@ -1,0 +1,6 @@
+mixin stepIndicator(currentStep)
+  .step-indicator
+    ul.step-indicator__list
+      each step in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        li.step-indicator__item(class=step === currentStep ? 'is-active' : '', aria-current=step === currentStep ? 'step' : undefined)
+          span.step-indicator__number= step

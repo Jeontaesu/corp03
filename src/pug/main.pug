@@ -1,0 +1,176 @@
+extends ./layout/layout
+include ./mixin/statCard3.pug
+include ./mixin/newsItem3.pug
+include ./mixin/galleryItem3.pug
+include ./mixin/affiliateItem3.pug
+
+block content
+	-const statCards = [{modifierClass: 'history', img: '../img/main/main3_stat_history.png', label: '역사와 신뢰', num: '20', unit: '년'},{modifierClass: 'satisfaction', img: '../img/main/main3_stat_satisfaction.png', label: '고객의 만족', num: '100', unit: '%'},{modifierClass: 'sales', img: '../img/main/main3_stat_sales.png', label: '매출과 신뢰', num: '8,000', unit: '억'},{modifierClass: 'esg', img: '../img/main/main3_stat_esg.png', label: 'ESG 경영', num: '100', unit: '점'}]
+	-const newsList = [{month: '2026.07', day: '14', title: '농협중앙회 NH AICC 구축 RFI 설명회 개최', desc: '별도의 금융상품 안내 페이지에서 자세한 상품 정보 및 관련 내용을 확인하실 수 있습니다.'},{month: '2026.06', day: '09', title: '연매출 800억 돌파"…유통 혁신으로 부여 농산...', desc: '별도의 금융상품 안내 페이지에서 자세한 상품 정보 및 관련 내용을 확인하실 수 있습니다.'},{month: '2026.06', day: '02', title: '2026년 농협 농산물저온유통 센터 구축 지원사...', desc: '별도의 금융상품 안내 페이지에서 자세한 상품 정보 및 관련 내용을 확인하실 수 있습니다.'}]
+	-const galleryList = [{img: '../img/main/main3_gallery01.png', title: '농협중앙회, 임직원 대상「청렴온기(淸廉溫氣) 확산 운동」실시', desc: '농협중앙회(회장 강호동)는 지난 7월 28일부터 서울 중구 본관에서 임직원을 대상으로「청렴온기(淸廉溫氣) 확산 운동」을 실시하고 있다고 3일 밝혔다.'},{img: '../img/main/main3_gallery02.png', title: '농협몰(NH싱싱몰), 임산부와 태아에게 친환경 농산물 본격 공급', desc: '농협경제지주(농업경제대표이사 김주양)는 국산 농식품 전문 온라인 쇼핑몰인 농협몰(NH싱싱몰)에서 \'임산부 친환경 농산물 꾸러미\' 주문 서비스를 시작했다고 4일 밝혔다.'}]
+	-const affiliateList = [{name: 'NH농협', icon: '../img/icon/main3_icon_aff_nhagri.svg'},{name: '농협몰', icon: '../img/icon/main3_icon_aff_mall.svg'},{name: '농림축산식품부', icon: '../img/icon/main3_icon_aff_food.svg', modifierClass: 'is-active'},{name: '친환경인증관리', icon: '../img/icon/main3_icon_aff_eco.svg'},{name: '농산물 가격정보', icon: '../img/icon/main3_icon_aff_price_a.svg'},{name: '농촌진흥청', icon: '../img/icon/main3_icon_aff_rda.svg'},{name: '농민신문', icon: '../img/icon/main3_icon_aff_news.svg'},{name: 'NH뱅크', icon: '../img/icon/main3_icon_aff_bank.svg'},{name: '농협경제지주', icon: '../img/icon/main3_icon_aff_economy.svg'},{name: '농업관측정보', icon: '../img/icon/main3_icon_aff_news.svg'}]
+
+	main.main3
+		//- 히어로
+		section.main3-hero
+			.main3-hero__gnb
+				.main3-hero__gnb-inner
+					.main3-hero__logo
+						img.main3-hero__logo-mark(src="../img/icon/main3_icon_gnb_logo.svg", alt="")
+						span.main3-hero__logo-text OO농협
+					nav.main3-hero__nav
+						ul.main3-hero__nav-list
+							li: a(href="#") 사업소개
+							li: a(href="#") 윤리경영
+							li: a(href="#") 채용안내
+							li: a(href="#") 홍보센터
+					.main3-hero__util
+						.main3-hero__auth
+							a(href="#") 로그인
+							span.main3-hero__auth-divider
+							a(href="#") 회원가입
+						button.main3-hero__menu-btn(type="button", aria-label="전체메뉴")
+							img(src="../img/icon/main3_icon_gnb_menu.svg", alt="")
+
+			h2.main3-hero__title
+				| 고객의 행복을 위해 언제나 노력하는 <br />
+				strong NH농협
+
+		//- 통계
+		section.main3-stats
+			ul.stat3-card-list
+				each item in statCards
+					+statCard3(item.modifierClass, item.img, item.label, item.num, item.unit)
+
+		//- 4가지 핵심가치
+		section.main3-values
+			h3.main3-values__title
+				| 미래를 향한 든든한 동행, <br />
+				| OO농협이 실현해 나가는 #[span.main3-values__highlight 4가지 핵심 가치]
+
+			.value3-row
+				.value3-main
+					.value3-main__img
+						img(src="../img/main/main3_value_hogeum.png", alt="")
+						.value3-main__badge
+							img(src="../img/icon/main3_icon_badge_a.svg", alt="")
+							img(src="../img/icon/main3_icon_badge_b.svg", alt="")
+					.value3-main__text
+						strong 상호금융
+						p 신뢰할 수 있는 금융 서비스를 통한 조합원의 풍요로운 삶 지원
+				ul.value3-strips
+					li: img(src="../img/main/main3_value_strip1.png", alt="경제사업")
+					li: img(src="../img/main/main3_value_strip2.png", alt="스마트영농")
+					li: img(src="../img/main/main3_value_strip3.png", alt="지역공헌")
+
+		//- News + 갤러리
+		section.main3-news.inner-box
+			.main3-news__row
+				.main3-news
+					.main3-news__tt
+						.main3-news__text
+							strong.main3-news__title News
+							p.main3-news__desc 다양한 행사 정보 및 공지사항을 안내드립니다.
+						img.main3-news__plus(src="../img/icon/main3_icon_plus.svg", alt="")
+					ul.news3-list
+						each item in newsList
+							+newsItem3(item.month, item.day, item.title, item.desc)
+
+				.main3-gallery
+					.main3-gallery__tt
+						.main3-gallery__text
+							strong.main3-gallery__title 갤러리
+							p.main3-gallery__desc 다양한 활동과 생생한 소식을 전해드립니다.
+						img.main3-gallery__plus(src="../img/icon/main3_icon_plus.svg", alt="")
+					ul.gallery3-list
+						each item in galleryList
+							+galleryItem3(item.img, item.title, item.desc)
+
+		//- 채용 배너
+		section.main3-recruit
+			.main3-recruit__wide
+				img.main3-recruit__illust(src="../img/main/main3_recruit_illust.png", alt="")
+				.main3-recruit__stars
+					img(src="../img/icon/main3_icon_star1.svg", alt="")
+					img(src="../img/icon/main3_icon_star2.svg", alt="")
+					img(src="../img/icon/main3_icon_star3.svg", alt="")
+				.main3-recruit__text
+					h4
+						| 당신과 함께 <br />
+						| 성장할 내일을 기다립니다.
+					p
+						| 현재 진행 중인 채용 공고를 확인하고, 당신의 역량을 펼칠 수 <br />
+						| 있는 최적의 자리에 지원해 보세요.
+					a.main3-recruit__btn.white(href="#")
+						| 채용정보 보러가기
+						img(src="../img/icon/main3_icon_arrow_pill.svg", alt="")
+
+			.main3-recruit__side
+				.main3-recruit__card.guide
+					.main3-recruit__text
+						h4
+							| 처음부터 끝까지 <br />
+							| 든든하게 안내합니다.
+						p 전형 절차와 지원 방법을 한눈에 확인하세요.
+						a.main3-recruit__btn.dark(href="#")
+							| 채용안내 보러가기
+							img(src="../img/icon/main3_icon_arrow_pill.svg", alt="")
+
+				.main3-recruit__card.welfare
+					.main3-recruit__text
+						h4
+							| 최고의 인재에게 <br />
+							| 최고의 환경을 제공합니다.
+						p 공정한 성장과 다채로운 복지 혜택을 만나보세요.
+						a.main3-recruit__btn.dark(href="#")
+							| 인사제도 및 복리후생 보러가기
+							img(src="../img/icon/main3_icon_arrow_pill.svg", alt="")
+
+		//- SNS
+		section.main3-sns
+			.main3-sns__tt
+				strong OO농협 SNS
+				p 농협의 새로운 소식과 다양한 이야기를 SNS에서 확인해 보세요.
+			ul.sns3-card-list
+				li.sns3-card.instagram
+					a(href="#")
+						.sns3-card__icon
+							img(src="../img/icon/main3_icon_instagram.svg", alt="")
+						.sns3-card__body
+							strong
+								| OO농협 <br />
+								| 인스타그램
+							span
+								| 바로가기
+								img(src="../img/icon/main3_icon_sns_arrow.svg", alt="")
+				li.sns3-card.youtube
+					a(href="#")
+						.sns3-card__icon
+							img(src="../img/icon/main3_icon_youtube.svg", alt="")
+						.sns3-card__body
+							strong
+								| OO농협 <br />
+								| 유튜브
+							span
+								| 바로가기
+								img(src="../img/icon/main3_icon_sns_arrow.svg", alt="")
+
+		//- 계열사
+		section.main3-affiliates
+			.main3-affiliates__tt
+				strong 계열사 소개
+				p 대한민국 농협의 미래를 함께하는 농협 계열사와 유관기관의 다양한 정보와 서비스를 지금 바로 확인해 보세요.
+				.main3-affiliates__links
+					a.main3-affiliates__link.dark(href="#")
+						| 농협금융지주
+						img(src="../img/icon/main3_icon_extlink_light.svg", alt="")
+					a.main3-affiliates__link.outline(href="#")
+						| 농협중앙회
+						img(src="../img/icon/main3_icon_extlink_dark.svg", alt="")
+
+			ul.affiliate3-list
+				each item in affiliateList
+					+affiliateItem3(item.modifierClass, item.name, item.icon)
+
+block bottomScripts
+	script(src="../js/main.js")

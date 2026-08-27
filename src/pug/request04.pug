@@ -1,0 +1,289 @@
+extends ./layout/layout
+include ./components/breadcrumb.pug
+include ./components/stepIndicator.pug
+
+block content
+  main.request-page
+    .inner-box
+      .request-page__top
+        +breadcrumb(['홈페이지 제작', '제작신청'])
+        .request-page__header
+          +stepIndicator(4)
+          h2.request-page__title 이관 메뉴 선택
+
+      section.request-section
+        span.helper-text * 콘텐츠 현행화 진행 시 #[em.color-red 해당 콘텐츠는 신청 후 00주 내 제공]해야 합니다.
+        table.menu-transfer-table
+          colgroup
+            col(style="width: 20%")
+            col(style="width: 10%")
+            col(style="width: 20%")
+            col(style="width: 10%")
+            col(style="width: 20%")
+            col(style="width: 10%")
+            col(style="width: 10%")
+          thead
+            tr
+              th 메뉴구조
+              th 이관여부
+              th 구분
+              th 비용
+              th 설명
+              th 삭제
+              th 콘텐츠 현행화
+          tbody
+            // 농협소개
+            tr.category-row
+              td(colspan="7") 농협소개
+            tr
+              td.menu-name 인사말
+              td 여
+              td 일반기능 (인사말 관리)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+            tr
+              td.menu-name 연혁
+              td 여
+              td 일반기능 (연혁 관리)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+            tr
+              td.menu-name 일반현황
+              td 여
+              td 개별 콘텐츠
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+                label.checkbox-custom
+                  input(type="checkbox")
+                  span.checkmark
+            tr
+              td.menu-name 사무소 소개
+              td 여
+              td 일반기능 (사무소 안내)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+                label.checkbox-custom
+                  input(type="checkbox")
+                  span.checkmark
+
+            // 금융업무
+            tr.category-row
+              td(colspan="7") 금융업무
+            tr
+              td.menu-name 예금상품
+              td 여
+              td 공통콘텐츠 (금융상품소개)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 대출상품
+              td 여
+              td 공통콘텐츠 (금융상품소개)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 공제보험
+              td 여
+              td 공통콘텐츠 (금융상품소개)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 농협카드
+              td 여
+              td 공통콘텐츠 (금융상품소개)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 농업자금
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+
+            // 알기쉬운 농협소식
+            tr.category-row
+              td(colspan="7") 알기쉬운 농협소식
+            tr
+              td.menu-name 공지사항
+              td 여
+              td 게시판 (글)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 운영의 공개
+              td 여
+              td 게시판 (글)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 경영공시
+              td 여
+              td 게시판 (글)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 농협소식
+              td 여
+              td 게시판 (글)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+
+            // 고객센터
+            tr.category-row
+              td(colspan="7") 고객센터
+            tr
+              td.menu-name 고객 게시판
+              td 여
+              td 게시판 (글)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 농업뉴스
+              td 여
+              td 공통게시판 (농업/축산뉴스)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 영농기술정보
+              td 여
+              td 공통게시판 (영농기술정보)
+              td.price 3,000
+              td 구독 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+            tr
+              td.menu-name 재테크정보
+              td 여
+              td 공통게시판 (재테크정보)
+              td.price 0
+              td 기본 제공 메뉴
+              td
+                label.checkbox-custom
+                  input(type="checkbox" checked)
+                  span.checkmark
+              td
+
+            // 정보마당
+            tr.category-row
+              td(colspan="7") 정보마당
+            tr
+              td.menu-name 농협농기계
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+            tr
+              td.menu-name 농업인계약서
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+            tr
+              td.menu-name 농업기술
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+            tr
+              td.menu-name 생활속의 세무
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+            tr
+              td.menu-name 법률상식
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+            tr
+              td.menu-name 건강정보
+              td 부
+              td.color-red(colspan="5") 이관불가
+              td
+              td
+
+      .request-page__bottom
+          .flex-group
+            button.btn.btn--light-blue.btn--large(type="button") 이전
+            button.btn.btn--primary.btn--large.ml-10(type="button") 다음
+          button.btn.btn--outline-blue.btn--medium(type="button") 임시저장

@@ -1,0 +1,14 @@
+mixin radioCard(id, category, title, url, desc, checked)
+  .radio-card
+    input.radio-card__input.sr-only(type="radio", name="request_target", id=id, checked=checked)
+    label.radio-card__label(for=id)
+      .radio-card__header
+        if category
+          span.radio-card__category= category
+        span.radio-card__status
+      .radio-card__content
+        strong.radio-card__title= title
+        if url
+          span.radio-card__url= url
+        if desc
+          p.radio-card__desc= desc

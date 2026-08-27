@@ -1,0 +1,120 @@
+extends ./layout/layout
+include ./components/breadcrumb.pug
+include ./components/stepIndicator.pug
+
+block content
+  main.request-page
+    .inner-box
+      .request-page__top
+        +breadcrumb(['홈페이지 제작', '제작신청'])
+        .request-page__header
+          +stepIndicator(3)
+          h2.request-page__title 홈페이지 제작 신청
+
+      section.request-section
+        .request-section__header
+          h3.request-section__title 신청자 정보
+          p.helper-text.color-red * 신청자 정보는 ‘회원정보 수정’에서 하시기 바랍니다.
+        
+        .form-table
+          .form-table__row
+            .form-table__label
+              span.name 사무소 정보
+            .form-table__content
+              p.info-text 사무소명
+          
+          .form-table__row
+            .form-table__label
+              span.name 이름
+            .form-table__content
+              p.info-text 홍길동
+            .form-table__label
+              span.name 직급
+            .form-table__content
+              input.input-text(type="text", title="직급 입력")
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 휴대폰 번호
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", value="010-1234-4567", readonly, title="휴대폰 번호")
+                button.btn.btn--dark-gray.btn--small(type="button") 인증번호 발송
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 인증번호
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", title="인증번호 입력")
+                button.btn.btn--dark-gray.btn--small(type="button") 인증번호 확인
+              p.helper-text.color-red.mt-10 인증번호 입력 시간 00:00
+              p.helper-text.mt-10 * 통신사 사정으로 인증번호 수신에 다소 시간이 걸릴 수 있습니다.
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 사업자등록번호
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", title="사업자등록번호 앞자리")
+                span.hyphen -
+                input.input-text(type="text", title="사업자등록번호 중간자리")
+                span.hyphen -
+                input.input-text(type="text", title="사업자등록번호 뒷자리")
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 사업자등록증
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", readonly, title="사업자등록증 파일명")
+                button.btn.btn--dark-gray.btn--small(type="button") 파일 업로드
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 위임장
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", readonly, title="위임장 파일명")
+                button.btn.btn--dark-gray.btn--small(type="button") 파일 업로드
+                button.btn.btn--outline-gray.btn--small(type="button") 위임장 양식 다운로드
+
+      section.request-section
+        h3.request-section__title 세금계산서 담당자 정보
+        
+        .form-table
+          .form-table__row
+            .form-table__label
+              span.name 이름
+            .form-table__content
+              input.input-text(type="text", title="담당자 이름 입력")
+            .form-table__label
+              span.name 직급
+            .form-table__content
+              input.input-text(type="text", title="담당자 직급 입력")
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 연락처
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", title="연락처 앞자리")
+                span.hyphen -
+                input.input-text(type="text", title="연락처 중간자리")
+                span.hyphen -
+                input.input-text(type="text", title="연락처 뒷자리")
+          
+          .form-table__row
+            .form-table__label.required
+              span.name 세금계산서 발행 이메일
+            .form-table__content
+              .flex-group
+                input.input-text(type="text", title="이메일 아이디")
+                span.at @
+                input.input-text(type="text", title="이메일 도메인")
+
+      .request-page__bottom
+          .flex-group
+            button.btn.btn--light-blue.btn--large(type="button") 이전
+            button.btn.btn--primary.btn--large.ml-10(type="button") 다음
+          button.btn.btn--outline-blue.btn--medium(type="button") 임시저장

@@ -1,0 +1,379 @@
+extends ./layout/layout
+include ./components/breadcrumb.pug
+include ./components/stepIndicator.pug
+
+block content
+  main.request-page
+    .inner-box
+      .request-page__top
+        +breadcrumb(['홈페이지 제작', '제작신청'])
+        .request-page__header
+          +stepIndicator(5)
+          h2.request-page__title 서비스 설정
+
+      section.request-section
+        .subscription-cards
+          // 구독_콘텐츠 상품
+          .subscription-card
+            .subscription-card__header
+              span 구독_콘텐츠 상품
+              button.tooltip-btn(type="button")
+                img(src="../img/icon/icon_info.svg" alt="도움말")
+              .tooltip-content
+                p 해당 구독 상품을 마우스로 클릭한 채 하단 메뉴 구성 화면으로 이동하여 메뉴를 구성해보세요.
+            .subscription-card__body
+              ul.subscription-list.drag-source-list(data-category="contents")
+                li.subscription-item(data-id="item-contents-1")
+                  span 영농기술소식
+                  button.btn-delete(type="button")
+                li.subscription-item(data-id="item-contents-2")
+                  span 금융/재테크소식
+                  button.btn-delete(type="button")
+          
+          // 구독_게시판 상품
+          .subscription-card
+            .subscription-card__header
+              span 구독_게시판 상품
+              button.tooltip-btn(type="button")
+                img(src="../img/icon/icon_info.svg" alt="도움말")
+              .tooltip-content
+                p 해당 구독 상품을 마우스로 클릭한 채 하단 메뉴 구성 화면으로 이동하여 메뉴를 구성해보세요.
+            .subscription-card__body
+              ul.subscription-list.drag-source-list(data-category="board")
+                li.subscription-item(data-id="item-board-1")
+                  span 일반 게시판
+                  button.btn-delete(type="button")
+                li.subscription-item(data-id="item-board-2")
+                  span 일반 게시판
+                  button.btn-delete(type="button")
+                li.subscription-item(data-id="item-board-3")
+                  span 일반 게시판
+                  button.btn-delete(type="button")
+
+          // 구독_쇼핑형 상품
+          .subscription-card
+            .subscription-card__header.header--dark-blue
+              span 구독_쇼핑형 상품
+            .subscription-card__body
+              ul.subscription-list.drag-source-list(data-category="shopping")
+                li.subscription-item.fix(data-id="item-shopping-1")
+                  .item-top
+                    span 소형 쇼핑몰
+                  .item-bottom
+                    i.icon-arrow-sub
+                    span 상품 개수 20~100개 미만
+
+          // 설치_부가 서비스
+          .subscription-card
+            .subscription-card__header.header--dark-blue
+              span 설치_부가 서비스
+            .subscription-card__body
+              ul.subscription-list.drag-source-list(data-category="additional")
+                li.subscription-item.fix(data-id="item-additional-1")
+                  .item-top
+                    span 별도 도메인
+                    button.btn-modify(type="button") 수정
+                  .item-bottom
+                    i.icon-arrow-sub
+                    span www.abcd.com
+
+      section.request-section
+        h3.request-section__title 메뉴 구성
+        .menu-config-container
+          .menu-config-grid
+            // 농협소개
+            .menu-box
+              .menu-box__header
+                span.title 농협소개
+                
+              .menu-box__body
+                ul.menu-list.drag-target-list
+                  li.menu-item
+                    span.name 인사말
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 주요연혁
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 일반현황
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 조직도
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 사무소 안내
+                    button.btn-remove(type="button")
+
+            // 경영공시
+            .menu-box
+              .menu-box__header
+                span.title 경영공시
+                
+              .menu-box__body
+                ul.menu-list.drag-target-list
+                  li.menu-item
+                    span.name 경영공시
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 운영의 공개
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 정관
+                    button.btn-remove(type="button")
+
+            // 금융상품
+            .menu-box
+              .menu-box__header
+                span.title 금융상품
+                
+              .menu-box__body
+                ul.menu-list.drag-target-list
+                  li.menu-item
+                    span.name 예금상품
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 대출상품
+                    button.btn-remove(type="button")
+                  li.menu-item(data-id="item-contents-2")
+                    span.name 금융/재테크소식
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 보험상품
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 카드상품
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 펀드상품
+                    button.btn-remove(type="button")
+
+            // 알림마당
+            .menu-box
+              .menu-box__header
+                span.title 알림마당
+                
+              .menu-box__body
+                ul.menu-list.drag-target-list
+                  li.menu-item(data-id="item-board-1")
+                    span.name 공지사항
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 개인채무자보호 공지
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name.onContent 소식지 
+                    button.btn-remove(type="button")
+                  li.menu-item(data-id="item-board-2")
+                    span.name 갤러리
+                    button.btn-remove(type="button")
+                  li.menu-item(data-id="item-board-3")
+                    span.name 동영상
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 고객의 소리
+                    button.btn-remove(type="button")
+
+            // 농협소개 (하단)
+            .menu-box
+              .menu-box__header
+                span.title 농협소개
+                
+              .menu-box__body
+                ul.menu-list.drag-target-list
+                  li.menu-item(data-id="item-board-4")
+                    span.name 공지사항
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 개인채무자보호 공지
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 소식지
+                    button.btn-remove(type="button")
+                  li.menu-item
+                    span.name 고객의 소리
+                    button.btn-remove(type="button")
+
+            // 대메뉴 추가
+            .menu-box.box--add
+              button.btn-add-main-menu(type="button") 대메뉴 추가
+
+      .request-page__bottom
+          .flex-group
+            button.btn.btn--light-blue.btn--large(type="button") 이전
+            button.btn.btn--primary.btn--large.ml-10(type="button") 다음
+          button.btn.btn--outline-blue.btn--medium(type="button") 임시저장
+
+block bottomScripts
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const sourceLists = document.querySelectorAll('.drag-source-list:not([data-category="shopping"]):not([data-category="additional"])');
+      const initialTargetLists = document.querySelectorAll('.drag-target-list');
+
+      // 드래그 대상 소스 리스트 초기화
+      sourceLists.forEach(el => {
+        new Sortable(el, {
+          group: {
+            name: 'menuBoard',
+            pull: true,
+            put: true
+          },
+          animation: 150,
+          ghostClass: 'sortable-ghost',
+          onAdd: function(evt) {
+            const item = evt.item;
+            const hasSub = item.getAttribute('data-has-sub') === 'true';
+            const hasBtn = item.getAttribute('data-has-btn') === 'true';
+            const text = item.getAttribute('data-text') || item.innerText;
+            
+            item.className = 'subscription-item';
+            if(hasSub) item.classList.add('has-sub');
+            if(hasBtn) item.classList.add('has-btn');
+
+            const originalHtml = item.getAttribute('data-original-html');
+            if (originalHtml) {
+              item.innerHTML = originalHtml;
+            } else {
+              item.innerHTML = `<span>${text}</span><button class="btn-delete" type="button"></button>`;
+            }
+          }
+        });
+      });
+
+      // 공통: 드롭 대상(메뉴 박스 리스트) Sortable 초기화 함수
+      function initTargetSortable(el) {
+        new Sortable(el, {
+          group: 'menuBoard',
+          animation: 150,
+          ghostClass: 'sortable-ghost',
+          onAdd: function(evt) {
+            const item = evt.item;
+            if (item.classList.contains('menu-item')) return;
+
+            if (!item.getAttribute('data-original-html')) {
+              item.setAttribute('data-original-html', item.innerHTML);
+              item.setAttribute('data-has-sub', item.classList.contains('has-sub'));
+              item.setAttribute('data-has-btn', item.classList.contains('has-btn'));
+              
+              const span = item.querySelector('span');
+              const text = span ? span.innerText : item.innerText;
+              item.setAttribute('data-text', text);
+            }
+
+            const text = item.getAttribute('data-text');
+            const hasSub = item.getAttribute('data-has-sub') === 'true';
+            
+            item.className = 'menu-item' + (hasSub ? ' has-sub' : '');
+            item.innerHTML = `
+              <span class="name">${text}</span>
+              <div class="btn-group">
+                <button class="btn-depth" type="button" title="뎁스 변경"></button>
+                <button class="btn-remove" type="button" title="삭제"></button>
+              </div>
+            `;
+
+            bindMenuItemEvents(item);
+          }
+        });
+      }
+
+      // 초기 타겟 리스트들 활성화
+      initialTargetLists.forEach(el => initTargetSortable(el));
+
+      // 대메뉴 추가 버튼 클릭 이벤트
+      const btnAddMainMenu = document.querySelector('.btn-add-main-menu');
+      if (btnAddMainMenu) {
+        btnAddMainMenu.addEventListener('click', function() {
+          const grid = document.querySelector('.menu-config-grid');
+          const addBox = document.querySelector('.menu-box.box--add');
+          
+          const newBox = document.createElement('div');
+          newBox.className = 'menu-box';
+          newBox.innerHTML = `
+            <div class="menu-box__header">
+              <span class="title">새 메뉴</span>
+            </div>
+            <div class="menu-box__body">
+              <ul class="menu-list drag-target-list"></ul>
+            </div>
+          `;
+          
+          grid.insertBefore(newBox, addBox);
+          initTargetSortable(newBox.querySelector('.drag-target-list'));
+        });
+      }
+
+      // 기존 및 신규 아이템 이벤트 바인딩 함수
+      function bindMenuItemEvents(item) {
+        const btnRemove = item.querySelector('.btn-remove');
+        if (btnRemove) {
+          btnRemove.onclick = function() {
+            removeItemToSource(item);
+          };
+        }
+
+        const btnDepth = item.querySelector('.btn-depth');
+        if (btnDepth) {
+          btnDepth.onclick = function() {
+            item.classList.toggle('has-sub');
+            const isSub = item.classList.contains('has-sub');
+            item.setAttribute('data-has-sub', isSub);
+          };
+        }
+      }
+
+      // 초기 로드 시 기존 아이템들 세팅
+      document.querySelectorAll('.menu-item').forEach(item => {
+        const id = item.getAttribute('data-id');
+        const span = item.querySelector('.name');
+        const text = span ? span.innerText : item.innerText;
+
+        if (id && !item.getAttribute('data-original-html')) {
+          item.setAttribute('data-text', text);
+          item.setAttribute('data-original-html', `<span>${text}</span><button class="btn-delete" type="button"></button>`);
+        }
+
+        const spanEl = item.querySelector('.name') || item.querySelector('span');
+        const extraClasses = spanEl ? [...spanEl.classList].filter(c => c !== 'name').join(' ') : ''
+
+        if (!item.querySelector('.btn-group')) {
+          item.innerHTML = `
+            <span class="name${extraClasses ? ' ' + extraClasses : ''}">${text}</span>
+            <div class="btn-group">
+              <button class="btn-depth" type="button" title="뎁스 변경"></button>
+              <button class="btn-remove" type="button" title="삭제"></button>
+            </div>
+          `;
+        }
+
+        bindMenuItemEvents(item);
+      });
+
+      function removeItemToSource(item) {
+        const id = item.getAttribute('data-id');
+        if (!id) {
+          item.remove();
+          return;
+        }
+
+        const parts = id.split('-');
+        const category = parts[1];
+        const sourceList = document.querySelector(`.drag-source-list[data-category="${category}"]`);
+
+        if (sourceList) {
+          const originalHtml = item.getAttribute('data-original-html');
+          const hasSub = item.getAttribute('data-has-sub') === 'true';
+          const hasBtn = item.getAttribute('data-has-btn') === 'true';
+          const text = item.getAttribute('data-text');
+          
+          item.className = 'subscription-item';
+          if(hasSub) item.classList.add('has-sub');
+          if(hasBtn) item.classList.add('has-btn');
+          
+          item.innerHTML = originalHtml || `<span>${text}</span><button class="btn-delete" type="button"></button>`;
+          sourceList.appendChild(item);
+        } else {
+          item.remove();
+        }
+      }
+    });
+    

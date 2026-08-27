@@ -1,0 +1,128 @@
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as func;
+@use "../abstracts/mixins" as mix;
+
+.footer {
+    $root: &;
+    border-top: 1px solid #e8ecf4;
+
+    #{$root} {
+        &__inner {
+            padding: 0 1.6rem;
+
+            @include mix.respond-to(pc) {
+                padding: 0 7.6%;
+                max-width: 160rem;
+                margin: 0 auto;
+            }
+
+            @media (min-width: 1600px) {
+                padding: 0;
+            }
+        }
+
+        &__top {
+            position: relative;
+
+            @include mix.respond-to(pc) {
+                .footer__inner {
+                    @include mix.respond-to(pc) {
+                        display: flex;
+                    }
+                }
+            }
+        }
+
+        &__bottom {
+            .footer__inner {
+                padding: 2rem 1.6rem 21rem;
+                border-top: 1px solid #e8ecf4;
+
+                @include mix.respond-to(pc) {
+                    padding: 2rem 7.6% 4rem;
+                }
+
+                @media (min-width: 1600px) {
+                    padding: 2rem 0 4rem;
+                }
+            }
+
+        }
+
+        &__menu {
+            display: flex;
+        }
+
+        &__menu-link {
+            font-size: 1.3rem;
+            font-weight: 400;
+            padding: 2rem 1rem 2rem;
+            line-height: 1;
+            color: var.$gray-333;
+
+            &+&__menu-link {
+                &::before {
+                    content: "";
+                    display: inline-flex;
+                    width: 1px;
+                    height: 1rem;
+                    background: #a7a7a7;
+                }
+            }
+
+            @include mix.respond-to(pc) {
+                padding: 2.5rem 1.25rem 2.5rem;
+                font-size: 1.6rem;
+            }
+
+            &:first-child {
+                position: relative;
+                padding-left: 0;
+            }
+        }
+
+        &__content {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var.$gray-888;
+            line-height: 2.2rem;
+
+            @include mix.respond-to(pc) {
+                display: flex;
+                font-size: 1.8rem;
+            }
+        }
+
+        &__logo {
+            @include mix.widthHeight(140px, 20px);
+
+            @include mix.respond-to(pc) {
+                @include mix.widthHeight(230px, 32px);
+                margin-right: 6rem;
+            }
+        }
+
+        &__company-info {
+            margin-top: 1.5rem;
+
+            @include mix.respond-to(pc) {
+                margin-top: 0;
+                line-height: 2.6rem;
+            }
+        }
+
+        &__copyright {
+            margin-top: 1.6rem;
+
+            @include mix.respond-to(pc) {
+                margin-top: auto;
+                margin-left: auto;
+                font-size: 1.8rem;
+
+                br {
+                    display: none;
+                }
+            }
+        }
+    }
+}

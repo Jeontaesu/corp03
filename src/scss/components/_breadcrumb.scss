@@ -1,0 +1,50 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as func;
+@use '../abstracts/mixins' as mix;
+
+.breadcrumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &__list {
+        display: flex;
+        align-items: center;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        @include mix.fontStyle(1.5rem, 400, 1);
+        color: #93969b;
+
+        &+&::before {
+            content: '';
+            display: inline-block;
+            width: 0.4rem;
+            height: 0.4rem;
+            background: #a4a7ad;
+            border-radius: 50%;
+            margin: 0 1.2rem;
+        }
+
+        &:last-child {
+            color: #5e6063;
+        }
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+
+        &--home {
+            .icon-home {
+                display: inline-block;
+                width: 1.6rem;
+                height: 1.6rem;
+                background: url('../img/icon/icon_home.svg') no-repeat center;
+                background-size: contain;
+            }
+        }
+    }
+}

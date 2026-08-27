@@ -1,0 +1,9 @@
+mixin statCard3(modifierClass, img, label, num, unit)
+	li.stat3-card(class=modifierClass)
+		.stat3-card__img
+			img(src=img, alt="")
+		.stat3-card__text
+			span.stat3-card__label= label
+			p.stat3-card__num
+				strong= num
+				span= unit

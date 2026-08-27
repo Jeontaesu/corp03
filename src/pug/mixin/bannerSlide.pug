@@ -1,0 +1,7 @@
+mixin bannerSlide(title, subText, imgClass)
+    .swiper-slide.banner-swiper__item
+        a.banner-swiper__link(href="#") 
+            .banner-swiper__img(class=imgClass)
+            .banner-swiper__text-box
+                p.banner-swiper__sub!= subText
+                h2.banner-swiper__title!= title

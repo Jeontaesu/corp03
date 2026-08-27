@@ -1,0 +1,506 @@
+//- extends ./layout/layout
+//- include ./components/breadcrumb.pug
+//- include ./components/stepIndicator.pug
+
+//- //- ============================================================
+//- //- mixin: menuRow
+//- //- 매개변수
+//- //-   name      {string}  메뉴명
+//- //-   transfer  {string}  이관여부 ('여' | '부')
+//- //-   type      {string}  구분 (이관불가일 경우 빈 문자열)
+//- //-   price     {string}  비용
+//- //-   desc      {string}  설명
+//- //-   hasDelete {boolean} 삭제 체크박스 표시 여부
+//- //-   hasUpdate {boolean} 콘텐츠 현행화 체크박스 표시 여부
+//- //-   checked   {object}  { delete: bool, update: bool } 체크 상태
+//- //-   id        {string}  아코디언 토글 대상 id (하위 메뉴가 있을 경우)
+//- //-   depth     {number}  현재 depth (1~6, 루트는 0으로 간주)
+//- //-   parentId  {string}  부모 그룹 id (최상위는 빈 문자열)
+//- //- ============================================================
+//- mixin menuRow(options)
+//-   -
+//-     var name      = options.name
+//-     var transfer  = options.transfer
+//-     var type      = options.type      || ''
+//-     var price     = options.price     || '0'
+//-     var desc      = options.desc      || ''
+//-     var hasDelete = options.hasDelete !== false
+//-     var hasUpdate = options.hasUpdate !== false
+//-     var checked   = options.checked   || { delete: false, update: false }
+//-     var id        = options.id        || ''         // 하위 메뉴가 있으면 토글 id
+//-     var depth     = options.depth     || 0          // 0 = 최상위 행
+//-     var parentId  = options.parentId  || ''         // 하위 행이면 부모 그룹 id
+
+//-   //- 이관불가 행
+//-   if transfer === '부'
+//-     tr(class=parentId ? 'accordion-sub depth-' + depth : '' data-group=parentId || undefined)
+//-       td.menu-name(class='depth-' + depth)
+//-         if depth > 0
+//-           span.menu-depth-indent(aria-hidden="true")
+//-         | #{name}
+//-       td 부
+//-       td.color-red(colspan="5") 이관불가
+
+//-   //- 이관 가능 행
+//-   else
+//-     tr(class=parentId ? 'accordion-sub depth-' + depth : '' data-group=parentId || undefined)
+//-       td.menu-name(class='depth-' + depth)
+//-         //- 하위 메뉴가 있으면 토글 버튼 추가
+//-         if id
+//-           button.accordion-toggle(
+//-             type="button"
+//-             aria-expanded="false"
+//-             aria-controls=id
+//-             data-target=id
+//-           )
+//-             span.accordion-toggle__icon(aria-hidden="true")
+//-         //- 들여쓰기 인디케이터 (depth 1~6)
+//-         if depth > 0
+//-           span.menu-depth-indent(aria-hidden="true")
+//-         | #{name}
+//-       td= transfer
+//-       td= type
+//-       td.price= price
+//-       td= desc
+//-       td
+//-         if hasDelete
+//-           label.checkbox-custom
+//-             input(type="checkbox" checked=checked.delete || undefined)
+//-             span.checkmark
+//-       td
+//-         if hasUpdate
+//-           label.checkbox-custom
+//-             input(type="checkbox" checked=checked.update || undefined)
+//-             span.checkmark
+
+//- //- ============================================================
+//- //- mixin: subMenuRows
+//- //- 하위 메뉴 행 그룹 래퍼
+//- //- 매개변수
+//- //-   id    {string}  아코디언 그룹 id (부모의 data-target 과 일치)
+//- //- 내부에 +menuRow 또는 +subMenuRows 를 중첩하여 사용
+//- //- ============================================================
+//- mixin subMenuRows(id)
+//-   //- 하위 행은 tbody 안에 바로 삽입되므로 tr을 직접 래핑할 수 없음
+//-   //- JS에서 data-group 속성으로 묶어서 show/hide 처리
+//-   block
+
+
+//- block content
+//-   main.request-page
+//-     .inner-box
+//-       .request-page__top
+//-         +breadcrumb(['홈페이지 제작', '제작신청'])
+//-         .request-page__header
+//-           +stepIndicator(4)
+//-           h2.request-page__title 이관 메뉴 선택
+
+//-       section.request-section
+//-         span.helper-text
+//-           | * 콘텐츠 현행화 진행 시 
+//-           em.color-red 해당 콘텐츠는 신청 후 00주 내 제공
+//-           | 해야 합니다.
+
+//-         table.menu-transfer-table
+//-           colgroup
+//-             col(style="width: 20%")
+//-             col(style="width: 10%")
+//-             col(style="width: 20%")
+//-             col(style="width: 10%")
+//-             col(style="width: 20%")
+//-             col(style="width: 10%")
+//-             col(style="width: 10%")
+//-           thead
+//-             tr
+//-               th 메뉴구조
+//-               th 이관여부
+//-               th 구분
+//-               th 비용
+//-               th 설명
+//-               th 삭제
+//-               th 콘텐츠 현행화
+//-           tbody
+
+//-             //- ────────────────────────────
+//-             //- 농협소개
+//-             //- ────────────────────────────
+//-             tr.category-row
+//-               td(colspan="7") 농협소개
+
+//-             //- 인사말 (depth 0, 하위 있음 → id 지정)
+//-             +menuRow({
+//-               name: '인사말',
+//-               transfer: '여',
+//-               type: '일반기능 (인사말 관리)',
+//-               price: '0',
+//-               desc: '기본 제공 메뉴',
+//-               checked: { delete: true, update: true },
+//-               id: 'sub-greeting'
+//-             })
+
+//-             //- depth 1
+//-             +menuRow({
+//-               name: '대표이사 인사말',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               id: 'sub-greeting-ceo',
+//-               depth: 1,
+//-               parentId: 'sub-greeting'
+//-             })
+
+//-             //- depth 2
+//-             +menuRow({
+//-               name: '국문 인사말',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               id: 'sub-greeting-ceo-ko',
+//-               depth: 2,
+//-               parentId: 'sub-greeting-ceo'
+//-             })
+
+//-             //- depth 3
+//-             +menuRow({
+//-               name: '본문 텍스트',
+//-               transfer: '여',
+//-               type: '에디터',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: true },
+//-               id: 'sub-greeting-ceo-ko-body',
+//-               depth: 3,
+//-               parentId: 'sub-greeting-ceo-ko'
+//-             })
+
+//-             //- depth 4
+//-             +menuRow({
+//-               name: '단락 1',
+//-               transfer: '여',
+//-               type: '텍스트 블록',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               id: 'sub-greeting-ceo-ko-body-p1',
+//-               depth: 4,
+//-               parentId: 'sub-greeting-ceo-ko-body'
+//-             })
+
+//-             //- depth 5
+//-             +menuRow({
+//-               name: '세부 문단 내용',
+//-               transfer: '여',
+//-               type: '텍스트',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: false, update: false },
+//-               id: 'sub-greeting-ceo-ko-body-p1-detail',
+//-               depth: 5,
+//-               parentId: 'sub-greeting-ceo-ko-body-p1'
+//-             })
+
+//-             //- depth 6 (최대 depth, 토글 버튼 없음 → id 미지정)
+//-             +menuRow({
+//-               name: '최하위 문단',
+//-               transfer: '여',
+//-               type: '텍스트',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: false, update: false },
+//-               depth: 6,
+//-               parentId: 'sub-greeting-ceo-ko-body-p1-detail'
+//-             })
+
+//-             //- depth 2 (같은 부모 sub-greeting-ceo 아래 두 번째 항목)
+//-             +menuRow({
+//-               name: '영문 인사말',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 2,
+//-               parentId: 'sub-greeting-ceo'
+//-             })
+
+//-             //- depth 1 (sub-greeting 아래 두 번째 항목)
+//-             +menuRow({
+//-               name: '조합장 인사말',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 1,
+//-               parentId: 'sub-greeting'
+//-             })
+
+//-             //- 연혁 (depth 0)
+//-             +menuRow({
+//-               name: '연혁',
+//-               transfer: '여',
+//-               type: '일반기능 (연혁 관리)',
+//-               price: '0',
+//-               desc: '기본 제공 메뉴',
+//-               checked: { delete: true, update: true },
+//-               id: 'sub-history'
+//-             })
+
+//-             +menuRow({
+//-               name: '창립 연혁',
+//-               transfer: '여',
+//-               type: '연혁 항목',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 1,
+//-               parentId: 'sub-history'
+//-             })
+
+//-             +menuRow({
+//-               name: '주요 사업 연혁',
+//-               transfer: '여',
+//-               type: '연혁 항목',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 1,
+//-               parentId: 'sub-history'
+//-             })
+
+//-             //- 일반현황 (depth 0)
+//-             +menuRow({
+//-               name: '일반현황',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공 메뉴',
+//-               checked: { delete: true, update: false },
+//-               id: 'sub-status'
+//-             })
+
+//-             +menuRow({
+//-               name: '조직 현황',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 1,
+//-               parentId: 'sub-status'
+//-             })
+
+//-             +menuRow({
+//-               name: '사업 현황',
+//-               transfer: '여',
+//-               type: '개별 콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               checked: { delete: true, update: false },
+//-               depth: 1,
+//-               parentId: 'sub-status'
+//-             })
+
+//-             //- 사무소 소개 (depth 0, 하위 없음 → id 미지정)
+//-             +menuRow({
+//-               name: '사무소 소개',
+//-               transfer: '여',
+//-               type: '일반기능 (사무소 안내)',
+//-               price: '0',
+//-               desc: '기본 제공 메뉴',
+//-               checked: { delete: true, update: false }
+//-             })
+
+//-             //- ────────────────────────────
+//-             //- 금융업무
+//-             //- ────────────────────────────
+//-             tr.category-row
+//-               td(colspan="7") 금융업무
+
+//-             +menuRow({
+//-               name: '예금상품',
+//-               transfer: '여',
+//-               type: '공통콘텐츠 (금융상품소개)',
+//-               price: '0',
+//-               desc: '기본 제공 메뉴',
+//-               hasUpdate: false,
+//-               checked: { delete: true },
+//-               id: 'sub-deposit'
+//-             })
+
+//-             +menuRow({
+//-               name: '정기예금',
+//-               transfer: '여',
+//-               type: '공통콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               hasUpdate: false,
+//-               checked: { delete: true },
+//-               depth: 1,
+//-               parentId: 'sub-deposit'
+//-             })
+
+//-             +menuRow({
+//-               name: '자유예금',
+//-               transfer: '여',
+//-               type: '공통콘텐츠',
+//-               price: '0',
+//-               desc: '기본 제공',
+//-               hasUpdate: false,
+//-               checked: { delete: true },
+//-               depth: 1,
+//-               parentId: 'sub-deposit'
+//-             })
+
+//-             +menuRow({ name: '대출상품', transfer: '여', type: '공통콘텐츠 (금융상품소개)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '공제보험',  transfer: '여', type: '공통콘텐츠 (금융상품소개)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '농협카드',  transfer: '여', type: '공통콘텐츠 (금융상품소개)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '농업자금',  transfer: '부' })
+
+//-             //- ────────────────────────────
+//-             //- 알기쉬운 농협소식
+//-             //- ────────────────────────────
+//-             tr.category-row
+//-               td(colspan="7") 알기쉬운 농협소식
+
+//-             +menuRow({ name: '공지사항', transfer: '여', type: '게시판 (글)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '운영의 공개', transfer: '여', type: '게시판 (글)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '경영공시',   transfer: '여', type: '게시판 (글)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '농협소식',   transfer: '여', type: '게시판 (글)', price: '0', desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+
+//-             //- ────────────────────────────
+//-             //- 고객센터
+//-             //- ────────────────────────────
+//-             tr.category-row
+//-               td(colspan="7") 고객센터
+
+//-             +menuRow({ name: '고객 게시판',   transfer: '여', type: '게시판 (글)',              price: '0',     desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '농업뉴스',      transfer: '여', type: '공통게시판 (농업/축산뉴스)', price: '0',     desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '영농기술정보',   transfer: '여', type: '공통게시판 (영농기술정보)',  price: '3,000', desc: '구독 메뉴',      hasUpdate: false, checked: { delete: true } })
+//-             +menuRow({ name: '재테크정보',    transfer: '여', type: '공통게시판 (재테크정보)',    price: '0',     desc: '기본 제공 메뉴', hasUpdate: false, checked: { delete: true } })
+
+//-             //- ────────────────────────────
+//-             //- 정보마당
+//-             //- ────────────────────────────
+//-             tr.category-row
+//-               td(colspan="7") 정보마당
+
+//-             +menuRow({ name: '농협농기계',   transfer: '부' })
+//-             +menuRow({ name: '농업인계약서', transfer: '부' })
+//-             +menuRow({ name: '농업기술',     transfer: '부' })
+//-             +menuRow({ name: '생활속의 세무', transfer: '부' })
+//-             +menuRow({ name: '법률상식',     transfer: '부' })
+//-             +menuRow({ name: '건강정보',     transfer: '부' })
+
+//-       .request-page__bottom
+//-         .flex-group
+//-           button.btn.btn--light-blue.btn--large(type="button") 이전
+//-           button.btn.btn--primary.btn--large.ml-10(type="button") 다음
+//-         button.btn.btn--outline-blue.btn--medium(type="button") 임시저장
+//-   // ✅ 여기로 script 이동 (block 안으로!)
+//-   script.
+//-     document.addEventListener('DOMContentLoaded', () => {
+//-       const buttons = document.querySelectorAll('.accordion-toggle')
+
+//-       buttons.forEach(btn => {
+//-         btn.addEventListener('click', () => {
+//-           const target = btn.dataset.target
+//-           const isExpanded = btn.getAttribute('aria-expanded') === 'true'
+
+//-           btn.setAttribute('aria-expanded', String(!isExpanded))
+//-           toggleGroup(target, !isExpanded)
+//-         })
+//-       })
+
+//-       function toggleGroup(groupId, open) {
+//-         const rows = document.querySelectorAll(`[data-group="${groupId}"]`)
+
+//-         rows.forEach(row => {
+//-           row.hidden = !open
+
+//-           if (!open) {
+//-             const childButtons = row.querySelectorAll('.accordion-toggle[aria-expanded="true"]')
+
+//-             childButtons.forEach(childBtn => {
+//-               childBtn.setAttribute('aria-expanded', 'false')
+//-               toggleGroup(childBtn.dataset.target, false)
+//-             })
+//-           }
+//-         })
+//-       }
+
+//-       // ✅ 초기 상태: 전부 닫기 (테스트용)
+//-       document.querySelectorAll('[data-group]').forEach(row => {
+//-         row.hidden = true
+//-       })
+//-     }) 
+
+//- style. 
+//-   /* 아코디언 토글 버튼 */
+//- .accordion-toggle {
+//-   display: inline-flex;
+//-   align-items: center;
+//-   justify-content: center;
+//-   width: 18px;
+//-   height: 18px;
+//-   margin-right: 6px;
+//-   padding: 0;
+//-   border: 1px solid #ccc;
+//-   border-radius: 3px;
+//-   background: #fff;
+//-   cursor: pointer;
+//-   flex-shrink: 0;
+//-   vertical-align: middle;
+//- }
+
+//- /* + / - 아이콘 (CSS로 표현) */
+//- .accordion-toggle__icon {
+//-   display: block;
+//-   width: 10px;
+//-   height: 10px;
+//-   position: relative;
+//- }
+
+//- /* 가로선 (항상 표시) */
+//- .accordion-toggle__icon::before {
+//-   content: '';
+//-   display: block;
+//-   position: absolute;
+//-   top: 50%;
+//-   left: 0;
+//-   width: 100%;
+//-   height: 1px;
+//-   background: #666;
+//-   transform: translateY(-50%);
+//- }
+
+//- /* 세로선 (닫혔을 때만 표시 → + 모양) */
+//- .accordion-toggle__icon::after {
+//-   content: '';
+//-   display: block;
+//-   position: absolute;
+//-   top: 0;
+//-   left: 50%;
+//-   width: 1px;
+//-   height: 100%;
+//-   background: #666;
+//-   transform: translateX(-50%);
+//-   transition: opacity 0.15s;
+//- }
+
+//- /* 열렸을 때 세로선 숨김 → - 모양 */
+//- .accordion-toggle[aria-expanded="true"] .accordion-toggle__icon::after {
+//-   opacity: 0;
+//- }
+
+//- /* depth별 들여쓰기 */
+//- .menu-name.depth-1 { padding-left: 24px; }
+//- .menu-name.depth-2 { padding-left: 40px; }
+//- .menu-name.depth-3 { padding-left: 56px; }
+//- .menu-name.depth-4 { padding-left: 72px; }
+//- .menu-name.depth-5 { padding-left: 88px; }
+//- .menu-name.depth-6 { padding-left: 104px; }

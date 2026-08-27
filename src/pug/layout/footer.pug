@@ -1,0 +1,16 @@
+-const menuList = ['이용약관','개인정보처리방침','이메일무단수집거부'];
+
+footer.footer 
+    .footer__top 
+        .footer__inner
+            .footer__menu
+                each menu in menuList
+                    a.footer__menu-link(href="#", aria-label=menu)= menu
+    .footer__bottom
+        .footer__inner
+            .footer__content
+                .footer__logo 
+                    img(src="../img/common/footer_logo.png", alt="범농협")
+                .footer__company-info
+                    p.info-text (06771) 서울 종로구 통일로 134 NH농협타워 1층  
+                    p.footer__copyright &copy;농협정보시스템

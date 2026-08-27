@@ -1,0 +1,43 @@
+-
+    const gnbList = ['홈페이지 서비스 안내', '홈페이지 제작', '알림마당', '운영지원센터 소개'];
+    const gnbDepthLists = [
+        ['서비스 개요', '주요기능', '특장점', '기대효과'],
+        ['제작절차', '제작유형', '포트폴리오', '제작신청'],
+        ['공지사항', '보도자료', '이벤트', '자주 묻는 질문'],
+        ['센터소개', '조직도', '찾아오시는 길']
+    ];
+
+header.header(data-js="header")
+    .header__inner
+        .header__logo 
+            a(href="#", title="nonghyup Main")
+                img(src="../img/common/logo.png", alt="nonghyup")
+        .header__gnb    
+            ul.gnb
+                each item, i in gnbList 
+                    li.gnb__item
+                        a(href="#").gnb__link #{item} 
+                        if gnbDepthLists[i].length > 0 
+                            //- .gnb__depth
+                            //-     ul.gnb__depth-list
+                            //-         each depthItem in gnbDepthLists[i]
+                            //-             li.gnb__depth-item
+                            //-                 a(href="#").gnb__depth-link= depthItem
+        .header__util
+            .util
+                .util__item
+                    a(href="#").util__menu 로그인
+                    a(href="#").util__menu 회원가입
+                    a(href="#").util__menu.btn 신청정보
+                    button.util__menu-button(type="button", aria-label="menu", data-js="gnbButton")
+    nav.all-gnb
+        div.all-gnb__category
+            each item, i in gnbList
+                - const extraClass = (i === 2) ? 'sectors' : ''
+                .all-gnb__category-item(class=extraClass)
+                    strong.all-gnb__title= item
+                    .all-gnb__menu 
+                        ul.menu-list
+                            each depthItem in gnbDepthLists[i]
+                                li.menu-list__item 
+                                    a(href="#").menu-list__link= depthItem
