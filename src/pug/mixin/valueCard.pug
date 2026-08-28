@@ -1,0 +1,9 @@
+mixin valueCard(modifierClass, img, icon, title, desc)
+	li.value-card(class=modifierClass, tabindex="0")
+		.value-card__img
+			img(src=img, alt="")
+		i.value-card__badge
+			img(src=icon, alt="")
+		.value-card__text
+			strong.value-card__title= title
+			p.value-card__desc= desc

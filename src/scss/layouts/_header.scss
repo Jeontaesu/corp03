@@ -2,150 +2,98 @@
 @use "../abstracts/functions" as func;
 @use "../abstracts/mixins" as mix;
 
+//
+// 헤더 / GNB (Figma 601:1093)
+// 밝은 히어로 이미지 위에 얹히는 투명 헤더. 스크롤하면 흰 배경으로 전환된다.
+//
 .header {
     $root: &;
     position: fixed;
     top: 0;
     width: 100%;
-    background: var.$white-color;
+    background: transparent;
     z-index: 11;
+    transition: background-color .3s ease, box-shadow .3s ease, transform .3s ease;
 
     &.hidden {
         transform: translateY(-100%);
     }
 
-    #{$root} {
-        &__inner {
-            position: relative;
-            @include mix.flexbox();
-            height: 6.4rem;
-            padding: 0 1.6rem;
+    &.is-scrolled {
+        background: var.$white-color;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
 
-            @include mix.respond-to(pc) {
-                height: 10rem;
-                max-width: 160rem;
-                margin: 0 auto;
-                // padding: 0 6rem;
-            }
-        }
+    &__inner {
+        display: flex;
+        align-items: center;
+        height: 6.4rem;
+        padding: 0 2rem;
 
-        &__logo {
-            margin-right: 5.4rem;
-            width: 140px;
-            height: 20px;
-
-            @include mix.respond-to(pc) {
-                width: 240px;
-                height: 32px;
-            }
-        }
-
-        &__gnb {
-            display: none;
-
-            @include mix.respond-to(pc) {
-                display: block;
-            }
-        }
-
-        &__util {
-            margin-left: auto;
-            // @include mix.flexbox();
-        }
-
-        &__contact {
-            display: none;
-
-            @include mix.respond-to(pc) {
-                display: block;
-                @include mix.fontStyle(1.6rem, 500, 1);
-                padding: 0 2.8rem;
-                margin-right: 4rem;
-                height: 4.4rem;
-                line-height: 4.4rem;
-                background: #eeeeee;
-                border-radius: 50px;
-            }
+        @include mix.respond-to(pc) {
+            gap: 8rem;
+            height: 11.2rem;
+            max-width: 150rem;
+            margin: 0 auto;
+            padding: 0;
         }
     }
 
-    .gnb {
+    &__logo {
+        flex-shrink: 0;
 
-        &__item {}
-
-        &__link {}
-
-        &__depth {}
-
-        &__depth-list {}
-
-        &__depth-item {}
-
-        &__depth-link {}
-    }
-
-    .util {
-        &__item {
+        a {
             display: flex;
             align-items: center;
-
-            a,
-            button {
-
-                // background-size: 2.8rem auto;
-                @include mix.respond-to(pc) {
-                    background-size: 100% auto;
-                }
-            }
-
-            // &-button {
-            //     @include mix.widthHeight(4rem, 4rem);
-            // }
+            gap: 1rem;
         }
+    }
 
-        &__menu {
-            font-size: 1.4rem;
-            padding: 1.2rem;
-            display: none;
+    &__logo-mark {
+        width: 2.2rem;
+        height: 2.7rem;
 
-            @include mix.respond-to(pc) {
-                display: block;
-            }
+        @include mix.respond-to(pc) {
+            width: 3.3rem;
+            height: 3.9rem;
+        }
+    }
 
-            &.btn {
-                display: none;
-                align-items: center;
-                justify-content: center;
-                margin-left: 1.4rem;
-                height: 2.8rem;
-                padding: 0 1.2rem;
-                background: var.$primary-color;
-                border-radius: 5rem;
-                color: var.$white-color;
-                display: none;
+    &__logo-text {
+        @include mix.fontStyle(2.2rem, 700, 1);
+        color: #1fb25a;
 
-                @include mix.respond-to(pc) {
-                    display: inline-flex;
-                }
-            }
+        @include mix.respond-to(pc) {
+            font-size: 4.3rem;
+            letter-spacing: -0.087rem;
+        }
+    }
 
-            &-button {
-                display: block;
-                @include mix.icon('icon_menu', 2.8rem, 2.8rem);
+    &__gnb {
+        display: none;
 
-                @include mix.respond-to(pc) {
-                    display: none;
-                }
-            }
+        @include mix.respond-to(pc) {
+            display: block;
+        }
+    }
+
+    &__util {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-left: auto;
+
+        @include mix.respond-to(pc) {
+            gap: 4rem;
         }
     }
 
     &.is-open {
-        .header__logo {
-            z-index: 10;
-        }
+        background: var.$white-color;
 
-        .header__util {
+        #{$root}__logo,
+        #{$root}__util {
+            position: relative;
             z-index: 10;
         }
 
@@ -153,12 +101,17 @@
             transform: translateX(0);
         }
 
-        .util__menu-button {
-            @include mix.icon('icon_close', 2.8rem, 2.8rem);
-            background-size: 2.8rem auto;
+        .util__menu-bar {
+            background-color: transparent;
 
-            @include mix.respond-to(pc) {
-                background-size: 100% auto;
+            &::before {
+                top: 0;
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                top: 0;
+                transform: rotate(-45deg);
             }
         }
     }
@@ -167,57 +120,105 @@
 // gnb
 .gnb {
     display: flex;
-
-    &__depth {
-        display: none;
-        @include mix.position(absolute, $top: 7.2rem, $left: 4rem);
-        width: 30.8rem;
-        padding: 1.8rem 2.4rem;
-        background: var.$white-color;
-        border-radius: 2rem;
-        box-shadow: 10px 10px 32px 0px rgba(34, 34, 34, 0.24);
-    }
-
-    &__item {
-        position: relative;
-        padding: 1rem 0;
-
-        &:hover .gnb__depth {
-            display: block;
-        }
-    }
+    align-items: center;
+    gap: 6.4rem;
 
     &__link {
         display: inline-block;
-        @include mix.fontStyle(2rem, 700, 1);
-        padding: 1.6rem 4rem;
-        text-transform: uppercase;
+        @include mix.fontStyle(2.2rem, 500, 1.4);
+        color: var.$black-color;
+        transition: color .3s ease;
 
-        &:hover {
-            color: var.$primary-color;
+        &:hover,
+        &:focus-visible {
+            color: #0b50d0;
+        }
+    }
+}
 
-            &~.gnb__depth {
-                display: block;
+// util (로그인 / 회원가입 + 전체메뉴 버튼)
+.util {
+    display: none;
+    align-items: center;
+    gap: 1.4rem;
+
+    @include mix.respond-to(pc) {
+        display: flex;
+    }
+
+    &__link {
+        @include mix.fontStyle(1.6rem, 500, 1.4);
+        color: #484848;
+        transition: color .3s ease;
+
+        &:hover,
+        &:focus-visible {
+            color: var.$gray-222;
+        }
+    }
+
+    &__divider {
+        width: 1px;
+        height: 1.2rem;
+        background: var.$gray-ccc;
+    }
+
+    // 햄버거 아이콘 전용 에셋이 없어 CSS 로 그린다. is-open 시 X 로 변형
+    &__menu-button {
+        position: relative;
+        flex-shrink: 0;
+        width: 3.2rem;
+        height: 3.2rem;
+
+        @include mix.respond-to(pc) {
+            width: 4.8rem;
+            height: 4.8rem;
+        }
+    }
+
+    &__menu-bar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2.4rem;
+        height: 2px;
+        margin: -1px 0 0 -1.2rem;
+        background-color: var.$black-color;
+        transition: background-color .3s ease;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var.$black-color;
+            transition: transform .3s ease, top .3s ease;
+        }
+
+        &::before {
+            top: -0.8rem;
+        }
+
+        &::after {
+            top: 0.8rem;
+        }
+
+        @include mix.respond-to(pc) {
+            width: 3.2rem;
+            height: 3px;
+            margin: -1.5px 0 0 -1.6rem;
+
+            &::before {
+                top: -0.96rem;
+            }
+
+            &::after {
+                top: 0.96rem;
             }
         }
     }
-
-    &__depth-list {}
-
-    &__depth-item {}
-
-    &__depth-link {
-        display: inline-block;
-        padding: 1rem 0;
-        @include mix.fontStyle(1.8rem, 500, 1);
-        transition: all .4s ease;
-
-        &:hover {
-            color: var.$primary-color;
-            transform: translateX(.6rem);
-        }
-    }
-
 }
 
 // all-menu
@@ -245,8 +246,7 @@
                 gap: 3.2%;
                 margin: 9.2vh auto 0;
                 padding: 7vh 12% 0;
-                // width: 144rem;
-                height: calc(100% - 10rem);
+                height: calc(100% - 11.2rem);
                 border-top: 0;
                 overflow: visible;
             }
@@ -276,7 +276,8 @@
                         @include mix.position(absolute, $bottom: 0.8rem, $right: -1.8rem);
                         @include mix.widthHeight(1.1rem, 1.1rem);
                         border-radius: 50%;
-                        background: var.$primary-color;
+                        background: #0b50d0;
+                        transition: opacity .3s ease;
                     }
                 }
             }
@@ -284,7 +285,6 @@
 
         &__title {
             @include mix.fontStyle(1.6rem, 700, 1);
-            text-transform: uppercase;
 
             @include mix.respond-to(pc) {
                 font-size: 3.2rem;
@@ -298,14 +298,6 @@
                 margin-top: 5.4vh;
             }
         }
-
-        &__side-link {
-            margin-top: 2.6rem;
-
-            @include mix.respond-to(pc) {
-                display: none;
-            }
-        }
     }
 
     .menu-list {
@@ -315,8 +307,6 @@
         @include mix.respond-to(pc) {
             border-bottom: 0;
         }
-
-        &__item {}
 
         &__link {
             display: inline-block;
@@ -331,7 +321,7 @@
             }
 
             &:hover {
-                color: var.$primary-color;
+                color: #0b50d0;
             }
         }
     }

@@ -1,90 +1,20 @@
-const swiperController = {
-    progressSelector:
-        '.main-swiper__controler .swiper-pagination-bullet-active .progress-inner',
+// 4가지 핵심가치 - 호버한 카드가 넓게 펼쳐지는 아코디언 (Figma 603:1771)
+// 항상 하나는 펼쳐진 상태를 유지하므로 mouseleave 시 원복하지 않는다.
+(function () {
+    const $list = $('[data-js="valueList"]');
+    if (!$list.length) return;
 
-    getProgressElement: function () {
-        return $(this.progressSelector);
-    },
+    const $cards = $list.find('.value-card');
+    // scss 의 respond-to(pc) 와 동일한 기준이어야 아코디언 CSS 와 어긋나지 않는다
+    const PC = '(min-width: 1440px)';
 
-    toggleAutoplay: function (mainSwiper) {
-        const $playerButton = $('.main-swiper__controler .main-swiper__player');
-        let progress = this.getProgressElement(); // 메서드로 progress 선택
+    $cards.on('mouseenter focusin', function () {
+        if (!window.matchMedia(PC).matches) return;
 
-        $playerButton.on('click', (event) => {
-            progress = this.getProgressElement(); // 슬라이드 변경 시마다 새로 progress 선택
-            if ($(event.currentTarget).hasClass('active')) {
-                this.play(mainSwiper, progress, event.currentTarget);
-            } else {
-                this.pause(mainSwiper, progress, event.currentTarget);
-            }
-        });
-    },
+        const $target = $(this);
+        if ($target.hasClass('is-active')) return;
 
-    play: function (mainSwiper, progress, button) {
-        $(button).removeClass('active');
-        progress.css({ 'animation-play-state': 'running' });
-        mainSwiper.autoplay.start();
-    },
-
-    pause: function (mainSwiper, progress, button) {
-        $(button).addClass('active');
-        progress.css({ 'animation-play-state': 'paused' });
-        mainSwiper.autoplay.stop();
-    },
-
-    resetProgressBar: function () {
-        const progress = this.getProgressElement();
-        progress.css({ 'animation-play-state': 'running' });
-    },
-};
-
-// Swiper 인스턴스 생성 및 설정
-const mainVisual = new Swiper('.main-swiper', {
-    slidesPerView: 1,
-    spaceBetween: 0,
-    autoplay: {
-        delay: 7000,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '.main-swiper__pagination',
-        clickable: true,
-        renderBullet: function (index, className) {
-            return (
-                '<span class="' +
-                className +
-                '">' +
-                '0' +
-                (index + 1) +
-                "<span class='progress-bar'><span class='progress-inner'></span></span></span>"
-            );
-        },
-    },
-    on: {
-        init: function () {
-            swiperController.resetProgressBar(); // 초기화 시 progress bar 설정
-        },
-        slideChange: function () {
-            swiperController.resetProgressBar(); // 슬라이드 변경 시 progress bar 설정
-        },
-    },
-});
-
-// Autoplay 컨트롤러 초기화
-swiperController.toggleAutoplay(mainVisual);
-
-// Banner Swiper 초기화
-const bannerSwiper = new Swiper('.banner-swiper', {
-    slidesPerView: 1,
-    spaceBetween: 0,
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '.banner-swiper__pagination',
-        type: 'fraction',
-        clickable: true,
-    },
-});
+        $cards.removeClass('is-active');
+        $target.addClass('is-active');
+    });
+})();

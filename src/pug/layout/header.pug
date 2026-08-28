@@ -1,43 +1,37 @@
 -
-    const gnbList = ['홈페이지 서비스 안내', '홈페이지 제작', '알림마당', '운영지원센터 소개'];
+    const gnbList = ['사업소개', '윤리경영', '채용안내', '홍보센터'];
     const gnbDepthLists = [
-        ['서비스 개요', '주요기능', '특장점', '기대효과'],
-        ['제작절차', '제작유형', '포트폴리오', '제작신청'],
-        ['공지사항', '보도자료', '이벤트', '자주 묻는 질문'],
-        ['센터소개', '조직도', '찾아오시는 길']
+        ['사업 개요', '상호금융', '경제사업', '스마트영농'],
+        ['윤리경영 소개', '윤리강령', '청렴 활동', '신고센터'],
+        ['채용 안내', '채용 절차', '인사제도', '복리후생'],
+        ['공지사항', '보도자료', '갤러리', '농협 소식지']
     ];
 
 header.header(data-js="header")
     .header__inner
-        .header__logo 
-            a(href="#", title="nonghyup Main")
-                img(src="../img/common/logo.png", alt="nonghyup")
-        .header__gnb    
+        .header__logo
+            a(href="#", title="OO농협 메인")
+                img.header__logo-mark(src="../img/icon/icon_nh_logo.svg", alt="")
+                span.header__logo-text OO농협
+        nav.header__gnb
             ul.gnb
-                each item, i in gnbList 
+                each item in gnbList
                     li.gnb__item
-                        a(href="#").gnb__link #{item} 
-                        if gnbDepthLists[i].length > 0 
-                            //- .gnb__depth
-                            //-     ul.gnb__depth-list
-                            //-         each depthItem in gnbDepthLists[i]
-                            //-             li.gnb__depth-item
-                            //-                 a(href="#").gnb__depth-link= depthItem
+                        a.gnb__link(href="#")= item
         .header__util
             .util
-                .util__item
-                    a(href="#").util__menu 로그인
-                    a(href="#").util__menu 회원가입
-                    a(href="#").util__menu.btn 신청정보
-                    button.util__menu-button(type="button", aria-label="menu", data-js="gnbButton")
+                a.util__link(href="#") 로그인
+                span.util__divider
+                a.util__link(href="#") 회원가입
+            button.util__menu-button(type="button", aria-label="전체메뉴", data-js="gnbButton")
+                span.util__menu-bar
     nav.all-gnb
-        div.all-gnb__category
+        .all-gnb__category
             each item, i in gnbList
-                - const extraClass = (i === 2) ? 'sectors' : ''
-                .all-gnb__category-item(class=extraClass)
+                .all-gnb__category-item
                     strong.all-gnb__title= item
-                    .all-gnb__menu 
+                    .all-gnb__menu
                         ul.menu-list
                             each depthItem in gnbDepthLists[i]
-                                li.menu-list__item 
-                                    a(href="#").menu-list__link= depthItem
+                                li.menu-list__item
+                                    a.menu-list__link(href="#")= depthItem

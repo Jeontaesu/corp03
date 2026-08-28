@@ -1,0 +1,10 @@
+mixin snsCard(modifierClass, icon, title)
+	li.sns-card(class=modifierClass)
+		a.sns-card__link(href="#")
+			.sns-card__icon
+				img(src=icon, alt="")
+			.sns-card__body
+				strong.sns-card__title!= title
+				span.sns-card__more
+					| 바로가기
+					img(src="../img/icon/icon_link_white.svg", alt="")

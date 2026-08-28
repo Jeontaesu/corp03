@@ -2,147 +2,67 @@
 @use "../abstracts/functions" as func;
 @use "../abstracts/mixins" as mix;
 
-.main3 {
+//
+// 기업형 템플릿 C - 메인 (Figma 601:1084)
+// 디자인 기준 폭 1920 / 콘텐츠 1500 (= 150rem). 1rem = 10px
+//
+$point-color: #0b50d0;
+$inner-width: 150rem;
+
+// .wrap 은 고정 헤더 높이만큼 padding-top 을 갖지만,
+// 메인은 히어로가 투명 헤더 아래로 꽉 차게 깔려야 하므로 해제한다
+.wrap:has(.main-hero) {
+	padding-top: 0;
+}
+
+.main {
+	position: relative;
 	overflow: hidden;
+}
+
+// 공통 섹션 이너
+// html font-size 가 1440~1599 에서 9.4px 로 줄어들어 150rem 이 그대로 들어맞는다
+%main-inner {
+	padding: 0 2rem;
+
+	@include mix.respond-to(pc) {
+		max-width: $inner-width;
+		margin: 0 auto;
+		padding: 0;
+	}
 }
 
 //
 // 히어로
 //
-.main3-hero {
-	position: relative;
-	background: url('../img/main/main3_hero_bg.png') no-repeat 50%;
-	background-size: cover;
-	padding: 6.4rem 1.6rem 8rem;
-	text-align: center;
+.main-hero {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 48rem;
+	padding: 6.4rem 2rem 0;
+	background: url('../img/main/main_hero_bg.png') no-repeat 50% / cover;
 
 	@include mix.respond-to(pc) {
-		padding: 0 0 20rem;
 		height: 86rem;
-		display: flex;
-		flex-direction: column;
-	}
-
-	&__gnb {
-		position: relative;
-		z-index: 2;
-
-		@include mix.respond-to(pc) {
-			padding: 3.2rem 0 0;
-		}
-	}
-
-	&__gnb-inner {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		max-width: 150rem;
-		margin: 0 auto;
-	}
-
-	&__logo {
-		display: flex;
-		align-items: center;
-		gap: 0.8rem;
-
-		&-mark {
-			width: 2.2rem;
-			height: 2.7rem;
-		}
-
-		&-text {
-			@include mix.fontStyle(1.8rem, 800, 1);
-			color: #1fb25a;
-			letter-spacing: -0.02em;
-
-			@include mix.respond-to(pc) {
-				font-size: 2.6rem;
-			}
-		}
-	}
-
-	&__nav {
-		display: none;
-
-		@include mix.respond-to(pc) {
-			display: block;
-
-			&-list {
-				display: flex;
-				gap: 6.4rem;
-
-				a {
-					@include mix.fontStyle(1.8rem, 500, 1.4);
-					color: var.$gray-222;
-				}
-			}
-		}
-	}
-
-	&__util {
-		display: flex;
-		align-items: center;
-		gap: 1.6rem;
-	}
-
-	&__auth {
-		display: none;
-
-		@include mix.respond-to(pc) {
-			display: flex;
-			align-items: center;
-			gap: 1.2rem;
-
-			a {
-				@include mix.fontStyle(1.6rem, 500, 1.4);
-				color: #484848;
-			}
-		}
-	}
-
-	&__auth-divider {
-		display: inline-block;
-		width: 1px;
-		height: 1.2rem;
-		background: #ccc;
-	}
-
-	&__menu-btn {
-		@include mix.widthHeight(2.8rem, 2.8rem);
-
-		@include mix.respond-to(pc) {
-			@include mix.widthHeight(4.2rem, 4.2rem);
-		}
-
-		img {
-			width: 100%;
-			height: 100%;
-			filter: invert(1);
-
-			@include mix.respond-to(pc) {
-				filter: none;
-			}
-		}
+		padding: 11.2rem 0 0;
 	}
 
 	&__title {
-		position: relative;
-		z-index: 2;
-		margin-top: 4rem;
-		@include mix.fontStyle(2.6rem, 500, 1.3);
+		@include mix.fontStyle(2.8rem, 500, 1.25);
 		color: var.$gray-222;
+		text-align: center;
 
 		strong {
-			font-weight: 800;
+			font-weight: 900;
+			font-size: 3.4rem;
 		}
 
 		@include mix.respond-to(pc) {
-			margin-top: auto;
-			margin-bottom: auto;
-			font-size: 5rem;
+			font-size: 6rem;
 
 			strong {
-				font-size: 6rem;
+				font-size: 7.2rem;
 			}
 		}
 	}
@@ -151,40 +71,67 @@
 //
 // 통계
 //
-.main3-stats {
-	padding: 0 1.6rem;
-	margin-top: -4rem;
-	position: relative;
-	z-index: 1;
+.main-stat {
+	padding: 6rem 0;
 
 	@include mix.respond-to(pc) {
-		max-width: 150rem;
-		margin: -14rem auto 0;
-		padding: 0;
+		padding: 12rem 0;
+	}
+
+	&__inner {
+		@extend %main-inner;
+
+		// 좌측 타이틀(40.5rem) + 우측 카드 영역. 카드는 3열 지그재그 배치
+		@include mix.respond-to(pc) {
+			display: grid;
+			grid-template-columns: 40.5rem 1fr;
+			gap: 2rem;
+			align-items: start;
+		}
+	}
+
+	&__title {
+		@include mix.fontStyle(2.6rem, 700, 1.5);
+		color: var.$gray-222;
+		letter-spacing: -0.052rem;
+
+		@include mix.respond-to(pc) {
+			font-size: 5.4rem;
+			letter-spacing: -0.108rem;
+		}
+	}
+
+	&__highlight {
+		color: $point-color;
 	}
 }
 
-.stat3-card-list {
+.stat-card-list {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 1.2rem;
+	margin-top: 3.2rem;
 
 	@include mix.respond-to(pc) {
-		gap: 2rem;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 4rem 2rem;
+		margin-top: 0;
+
+		// 1행은 2·3열, 2행은 1·2열로 어긋나게 배치 (디자인의 계단형 그리드)
+		.stat-card:first-child {
+			grid-column-start: 2;
+		}
 	}
 }
 
-.stat3-card {
+.stat-card {
 	position: relative;
-	height: 20rem;
+	aspect-ratio: 1 / 1;
 	border-radius: 1.6rem;
 	overflow: hidden;
 
-	&::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.15);
+	@include mix.respond-to(pc) {
+		border-radius: 2rem;
 	}
 
 	&__img {
@@ -201,45 +148,39 @@
 	&__text {
 		position: absolute;
 		z-index: 1;
-		left: 2rem;
-		bottom: 2rem;
+		left: 1.6rem;
+		bottom: 1.6rem;
 		color: var.$white-color;
 		text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+
+		@include mix.respond-to(pc) {
+			left: 4rem;
+			bottom: 4rem;
+		}
 	}
 
 	&__label {
 		display: block;
 		@include mix.fontStyle(1.3rem, 700, 1.5);
+
+		@include mix.respond-to(pc) {
+			font-size: 2rem;
+		}
 	}
 
 	&__num {
-		margin-top: 0.6rem;
+		margin-top: 1.2rem;
 
 		strong {
-			@include mix.fontStyle(3.2rem, 700, 1.2);
+			@include mix.fontStyle(2.8rem, 700, 1.2);
 		}
 
 		span {
-			margin-left: 0.4rem;
 			@include mix.fontStyle(1.6rem, 500, 1.2);
 		}
-	}
 
-	@include mix.respond-to(pc) {
-		height: 34.5rem;
-		border-radius: 2rem;
-
-		&__text {
-			left: 4rem;
-			bottom: 4rem;
-		}
-
-		&__label {
-			font-size: 2rem;
-		}
-
-		&__num {
-			margin-top: 1.6rem;
+		@include mix.respond-to(pc) {
+			margin-top: 3.2rem;
 
 			strong {
 				font-size: 5.8rem;
@@ -253,309 +194,374 @@
 }
 
 //
-// 4가지 핵심가치
+// 4가지 핵심가치 (호버 시 펼쳐지는 아코디언 - Figma 603:1771)
 //
-.main3-values {
-	margin-top: 8rem;
-	padding: 0 1.6rem;
-	text-align: center;
+.main-value {
+	padding: 6rem 0;
 
 	@include mix.respond-to(pc) {
-		margin-top: 16rem;
-		padding: 0;
+		padding: 10rem 0;
+	}
+
+	&__inner {
+		@extend %main-inner;
 	}
 
 	&__title {
 		@include mix.fontStyle(2.4rem, 700, 1.5);
 		color: var.$gray-222;
+		text-align: center;
+		letter-spacing: -0.048rem;
 
 		@include mix.respond-to(pc) {
 			font-size: 4rem;
+			letter-spacing: -0.08rem;
 		}
 	}
 
 	&__highlight {
-		color: #0b50d0;
+		color: $point-color;
 	}
 }
 
-.value3-row {
+.value-list {
 	display: flex;
 	flex-direction: column;
 	gap: 1.6rem;
-	margin-top: 4rem;
+	margin-top: 3.2rem;
 
 	@include mix.respond-to(pc) {
 		flex-direction: row;
+		align-items: flex-end;
 		gap: 2rem;
-		max-width: 150rem;
-		margin: 6rem auto 0;
+		height: 59.9rem;
+		margin-top: 6rem;
 	}
 }
 
-.value3-main {
-	text-align: left;
+.value-card {
+	$root: &;
 	position: relative;
 
+	&:focus {
+		outline: none;
+	}
+
 	&__img {
-		position: relative;
 		border-radius: 1.6rem;
 		overflow: hidden;
 
 		img {
+			display: block;
 			width: 100%;
-			height: 26rem;
+			height: 22rem;
 			object-fit: cover;
+		}
+
+		@include mix.respond-to(pc) {
+			height: 100%;
+			border-radius: 2rem;
+			transition: height .6s ease;
+
+			img {
+				height: 100%;
+			}
 		}
 	}
 
+	// 파란 라운드 배지 (아이콘 SVG 자체가 배경까지 포함)
 	&__badge {
 		position: absolute;
-		right: 1.6rem;
-		bottom: -1.6rem;
+		right: 2rem;
+		top: 17rem;
 		width: 6rem;
 		height: 6.5rem;
-		background: #0b50d0;
-		border-radius: 0.8rem;
 
 		img {
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 62%;
-			height: auto;
+			width: 100%;
+			height: 100%;
+		}
 
-			&:first-child {
-				top: 20%;
-			}
-
-			&:last-child {
-				width: 74%;
-				bottom: 22%;
-			}
+		@include mix.respond-to(pc) {
+			right: 5.8rem;
+			top: 39.5rem;
+			width: 12rem;
+			height: 13rem;
+			opacity: 0;
+			transition: opacity .4s ease;
 		}
 	}
 
 	&__text {
-		margin-top: 2.4rem;
+		margin-top: 2rem;
 
-		strong {
-			display: block;
-			@include mix.fontStyle(2rem, 700, 1.4);
-			color: var.$gray-333;
-		}
-
-		p {
-			margin-top: 0.8rem;
-			@include mix.fontStyle(1.4rem, 500, 1.4);
-			color: #777;
+		@include mix.respond-to(pc) {
+			position: absolute;
+			left: 4rem;
+			right: 4rem;
+			top: 48.8rem;
+			margin-top: 0;
+			opacity: 0;
+			white-space: nowrap;
+			transition: opacity .4s ease;
 		}
 	}
 
+	&__title {
+		display: block;
+		@include mix.fontStyle(2rem, 700, 1.4);
+		color: var.$gray-333;
+
+		@include mix.respond-to(pc) {
+			font-size: 3.6rem;
+		}
+	}
+
+	&__desc {
+		margin-top: 0.8rem;
+		@include mix.fontStyle(1.4rem, 500, 1.4);
+		color: var.$gray-777;
+
+		@include mix.respond-to(pc) {
+			margin-top: 1.6rem;
+			font-size: 2.2rem;
+		}
+	}
+
+	// PC: 기본은 좁은 세로 스트립, 활성화되면 넓게 펼쳐지며 텍스트/배지 노출
+	// 폭은 gap(3×2rem)을 뺀 나머지의 비율로 잡아 1440~1920 어디서도 넘치지 않게 한다
+	// (1500 기준 191 / 867 과 동일: 191÷1440, 867÷1440)
 	@include mix.respond-to(pc) {
-		flex: 0 0 50.3rem;
+		flex: 0 0 calc((100% - 6rem) * 0.132639);
+		height: 54rem;
+		transition: flex-basis .6s ease, height .6s ease;
 
-		&__img img {
-			height: 26rem;
-		}
+		&.is-active {
+			flex-basis: calc((100% - 6rem) * 0.602083);
+			height: 100%;
 
-		&__badge {
-			right: 2.4rem;
-			bottom: -2.4rem;
-			width: 7rem;
-			height: 7.5rem;
-		}
-
-		&__text {
-			margin-top: 3.2rem;
-
-			strong {
-				font-size: 2.4rem;
+			#{$root}__img {
+				height: 44.8rem;
 			}
 
-			p {
-				margin-top: 1.2rem;
-				font-size: 1.6rem;
+			#{$root}__badge,
+			#{$root}__text {
+				opacity: 1;
+				transition-delay: .2s;
 			}
-		}
-	}
-}
-
-.value3-strips {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 1.2rem;
-
-	li {
-		border-radius: 1.6rem;
-		overflow: hidden;
-		height: 20rem;
-	}
-
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	@include mix.respond-to(pc) {
-		flex: 1;
-		gap: 2rem;
-
-		li {
-			height: 36rem;
 		}
 	}
 }
 
 //
 // News + 갤러리
+// 갤러리 뒤 회색 패널은 디자인상 화면 오른쪽 절반(960/1920)
 //
-.main3-news {
-	&__row {
-		display: flex;
-		flex-direction: column;
-		gap: 6rem;
+.main-news {
+	position: relative;
+	padding: 6rem 0;
+
+	@include mix.respond-to(pc) {
+		padding: 14rem 0;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		z-index: 0;
+		inset: 0;
+		background: #f5f5f5;
 
 		@include mix.respond-to(pc) {
-			flex-direction: row;
-			gap: 6rem;
+			left: 50%;
 		}
 	}
-}
 
-.main3-news,
-.main3-gallery {
-	flex: 1;
-	min-width: 0;
-}
+	&__inner {
+		@extend %main-inner;
+		position: relative;
+		z-index: 1;
 
-.main3-news__tt,
-.main3-gallery__tt {
-	display: flex;
-	align-items: flex-end;
-	justify-content: space-between;
-	padding-bottom: 2rem;
-	border-bottom: 1px solid #ccc;
-}
-
-.main3-news__title,
-.main3-gallery__title {
-	display: block;
-	@include mix.fontStyle(2.6rem, 700, 1.5);
-	color: var.$gray-222;
-
-	@include mix.respond-to(pc) {
-		font-size: 4.4rem;
+		@include mix.respond-to(pc) {
+			display: flex;
+			gap: 12rem;
+		}
 	}
-}
 
-.main3-news__desc,
-.main3-gallery__desc {
-	margin-top: 0.6rem;
-	@include mix.fontStyle(1.4rem, 400, 1.4);
-	color: var.$gray-333;
+	&__col {
+		@include mix.respond-to(pc) {
+			flex: 1 1 0;
+			min-width: 0;
+		}
 
-	@include mix.respond-to(pc) {
+		&.gallery {
+			margin-top: 5.6rem;
+
+			@include mix.respond-to(pc) {
+				margin-top: 0;
+			}
+		}
+	}
+
+	&__tt {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+
+	&__title {
+		display: block;
+		@include mix.fontStyle(2.6rem, 700, 1.5);
+		color: var.$gray-222;
+
+		@include mix.respond-to(pc) {
+			font-size: 4.4rem;
+		}
+	}
+
+	&__desc {
 		margin-top: 0.8rem;
-		font-size: 2rem;
+		@include mix.fontStyle(1.5rem, 400, 1.4);
+		color: var.$gray-333;
+
+		@include mix.respond-to(pc) {
+			font-size: 2rem;
+		}
+	}
+
+	&__more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 3.2rem;
+		height: 3.2rem;
+		transition: transform .3s ease;
+
+		img {
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+
+		&:hover {
+			transform: rotate(90deg);
+		}
+
+		@include mix.respond-to(pc) {
+			width: 5.2rem;
+			height: 5.2rem;
+
+			img {
+				width: 2.4rem;
+				height: 2.4rem;
+			}
+		}
 	}
 }
 
-.main3-news__plus,
-.main3-gallery__plus {
-	flex-shrink: 0;
-	width: 2.6rem;
-	height: 2.6rem;
+.news-list {
+	margin-top: 2.4rem;
+	border-top: 1px solid var.$gray-ccc;
 
 	@include mix.respond-to(pc) {
-		width: 5.2rem;
-		height: 5.2rem;
-	}
-}
-
-.news3-list {
-	margin-top: 2rem;
-
-	&__item {
-		border-bottom: 1px solid #ccc;
-
-		&:last-child {
-			border-bottom: 0;
-		}
+		margin-top: 4rem;
 	}
 
 	&__link {
 		display: flex;
 		align-items: center;
 		gap: 2rem;
-		padding: 2rem 0;
+		padding: 2.4rem 0;
+		border-bottom: 1px solid var.$gray-ccc;
 
 		@include mix.respond-to(pc) {
-			gap: 3rem;
-			padding: 3.2rem 0;
+			gap: 3.8rem;
+			padding: 3rem 0;
 		}
 	}
 
 	&__date {
 		flex-shrink: 0;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
+		width: 5rem;
+		text-align: center;
 
-	&__month {
-		@include mix.fontStyle(1.2rem, 500, 1.4);
-		color: var.$gray-aaa;
+		@include mix.respond-to(pc) {
+			width: 7.2rem;
+		}
 	}
 
 	&__day {
-		@include mix.fontStyle(2.6rem, 700, 1.4);
+		display: block;
+		@include mix.fontStyle(3rem, 700, 1.4);
 		color: var.$gray-222;
+		letter-spacing: -0.06rem;
 
 		@include mix.respond-to(pc) {
 			font-size: 5.8rem;
+			letter-spacing: -0.116rem;
 		}
 	}
 
-	&__title {
+	&__month {
 		display: block;
-		@include mix.fontStyle(1.5rem, 500, 1.4);
-		color: var.$gray-222;
-		@include mix.text-overflow(1, 1.5rem);
-
-		@include mix.respond-to(pc) {
-			font-size: 2.2rem;
-		}
-	}
-
-	&__desc {
-		margin-top: 0.6rem;
-		@include mix.fontStyle(1.3rem, 400, 1.4);
-		color: var.$gray-666;
-		@include mix.text-overflow(1, 1.3rem);
+		@include mix.fontStyle(1.3rem, 500, 1.4);
+		color: #aeaeae;
 
 		@include mix.respond-to(pc) {
 			font-size: 1.6rem;
 		}
 	}
-}
 
-.gallery3-list {
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
-	margin-top: 2rem;
-
-	@include mix.respond-to(pc) {
-		flex-direction: row;
+	&__text {
+		flex: 1;
+		min-width: 0;
 	}
 
-	&__item {
-		flex: 1;
-		background: #f5f5f5;
+	&__title {
+		display: block;
+		@include mix.fontStyle(1.6rem, 500, 1.4);
+		color: var.$gray-222;
+		@include mix.text-overflow(1, 1.6rem);
+
+		@include mix.respond-to(pc) {
+			@include mix.text-overflow(1, 2.2rem);
+		}
+	}
+
+	&__desc {
+		margin-top: 0.6rem;
+		@include mix.fontStyle(1.4rem, 400, 1.4);
+		color: var.$gray-666;
+		@include mix.text-overflow(1, 1.4rem);
+
+		@include mix.respond-to(pc) {
+			@include mix.text-overflow(1, 1.6rem);
+		}
+	}
+
+	&__item:hover &__title {
+		color: $point-color;
+	}
+}
+
+.gallery-list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.2rem;
+	margin-top: 2.4rem;
+
+	@include mix.respond-to(pc) {
+		gap: 2rem;
+		margin-top: 4rem;
+	}
+
+	&__link {
+		display: block;
+		height: 100%;
 		border-radius: 1.6rem;
 		overflow: hidden;
+		background: var.$white-color;
 
 		@include mix.respond-to(pc) {
 			border-radius: 2rem;
@@ -563,31 +569,44 @@
 	}
 
 	&__img {
-		aspect-ratio: 335 / 257;
+		overflow: hidden;
 
 		img {
+			display: block;
 			width: 100%;
-			height: 100%;
+			height: 14rem;
 			object-fit: cover;
+			transition: transform .5s ease;
+		}
+
+		@include mix.respond-to(pc) {
+			img {
+				height: 25.7rem;
+			}
 		}
 	}
 
+	&__link:hover &__img img {
+		transform: scale(1.06);
+	}
+
 	&__body {
-		padding: 2rem;
+		padding: 1.6rem;
 
 		@include mix.respond-to(pc) {
+			height: 20rem;
 			padding: 3.2rem;
 		}
 	}
 
 	&__title {
 		display: block;
-		@include mix.fontStyle(1.6rem, 500, 1.4);
+		@include mix.fontStyle(1.5rem, 500, 1.4);
 		color: var.$gray-222;
-		@include mix.text-overflow(2, 1.6rem);
+		@include mix.text-overflow(2, 1.5rem);
 
 		@include mix.respond-to(pc) {
-			font-size: 2rem;
+			@include mix.text-overflow(2, 2rem);
 		}
 	}
 
@@ -595,175 +614,116 @@
 		margin-top: 1rem;
 		@include mix.fontStyle(1.3rem, 400, 1.5);
 		color: var.$gray-777;
-		@include mix.text-overflow(3, 1.3rem);
+		@include mix.text-overflow(2, 1.3rem);
 
 		@include mix.respond-to(pc) {
-			font-size: 1.6rem;
+			margin-top: 1.8rem;
+			@include mix.text-overflow(3, 1.6rem);
 		}
 	}
 }
 
 //
-// 채용 배너
+// 채용 배너 (전체 폭 - 좌 1206 / 우 714)
 //
-.main3-recruit {
+.main-recruit {
 	display: flex;
 	flex-direction: column;
-	gap: 1.6rem;
-	margin-top: 8rem;
-	padding: 0 1.6rem;
 
 	@include mix.respond-to(pc) {
 		flex-direction: row;
-		gap: 0;
-		margin-top: 16rem;
-		padding: 0;
 	}
 
 	&__wide {
 		position: relative;
-		padding: 4rem 3.2rem;
-		background: #0029aa;
-		border-radius: 2rem;
 		overflow: hidden;
+		padding: 4rem 2rem 24rem;
+		background: #0029aa;
 
 		@include mix.respond-to(pc) {
-			flex: 0 0 62.8%;
-			padding: 8rem;
-			border-radius: 0;
+			width: 62.8125%;
+			height: 68rem;
+			padding: 12rem;
 		}
 	}
 
 	&__illust {
-		display: none;
+		position: absolute;
+		right: 2rem;
+		bottom: 2rem;
+		width: 24rem;
 
 		@include mix.respond-to(pc) {
-			display: block;
-			position: absolute;
-			right: 6rem;
-			bottom: 0;
-			width: 34rem;
-			height: auto;
-		}
-	}
-
-	&__stars {
-		display: none;
-
-		@include mix.respond-to(pc) {
-			display: block;
-			position: absolute;
-			right: 24rem;
-			top: 4rem;
-
-			img {
-				position: absolute;
-			}
-
-			img:nth-child(1) {
-				width: 5.2rem;
-				top: 0;
-				right: 0;
-			}
-
-			img:nth-child(2) {
-				width: 2.6rem;
-				top: 2.6rem;
-				right: 4.4rem;
-			}
-
-			img:nth-child(3) {
-				width: 1.6rem;
-				top: -2.6rem;
-				right: 1.8rem;
-			}
+			right: 7.1rem;
+			bottom: 8.1rem;
+			width: 45.8rem;
 		}
 	}
 
 	&__side {
-		display: flex;
-		flex-direction: column;
-		gap: 1.6rem;
-
 		@include mix.respond-to(pc) {
-			flex: 1;
-			gap: 0;
+			display: flex;
+			flex-direction: column;
+			width: 37.1875%;
 		}
 	}
 
 	&__card {
-		position: relative;
-		padding: 4rem 3.2rem;
-		border-radius: 2rem;
-		overflow: hidden;
-
-		@include mix.respond-to(pc) {
-			height: 17rem;
-			padding: 0 6rem;
-			border-radius: 0;
-			display: flex;
-			align-items: center;
-		}
+		padding: 4rem 2rem;
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: cover;
 
 		&.guide {
-			background: #62719f;
+			background-image: url('../img/main/main_recruit_bg01.svg');
 		}
 
 		&.welfare {
-			background: linear-gradient(234deg, #7f21f7 13.7%, #2d47cf 60.5%, #2daccf 96.1%);
+			background-image: url('../img/main/main_recruit_bg02.svg');
+		}
+
+		@include mix.respond-to(pc) {
+			flex: 1;
+			padding: 6rem 8rem;
 		}
 	}
 
 	&__text {
 		position: relative;
 		z-index: 1;
-		color: var.$white-color;
-
-		h4 {
-			@include mix.fontStyle(2rem, 700, 1.4);
-		}
-
-		p {
-			margin-top: 1.2rem;
-			@include mix.fontStyle(1.4rem, 400, 1.4);
-		}
-
-		@include mix.respond-to(pc) {
-			h4 {
-				font-size: 2.6rem;
-			}
-
-			p {
-				margin-top: 1.4rem;
-				font-size: 1.6rem;
-			}
-		}
 	}
 
-	&__wide &__text {
-		h4 {
-			font-size: 2.8rem;
-		}
+	&__title {
+		@include mix.fontStyle(2.4rem, 700, 1.4);
+		color: var.$white-color;
+		letter-spacing: -0.048rem;
+	}
 
-		@include mix.respond-to(pc) {
-			h4 {
-				font-size: 4rem;
-			}
-		}
+	&__desc {
+		margin-top: 1.6rem;
+		@include mix.fontStyle(1.5rem, 400, 1.4);
+		color: var.$white-color;
+		letter-spacing: -0.03rem;
 	}
 
 	&__btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.8rem;
+		gap: 1rem;
 		margin-top: 2.4rem;
-		padding: 1rem 1.8rem;
-		border-radius: 10rem;
-		@include mix.fontStyle(1.4rem, 500, 1.4);
+		padding: 1.2rem 2rem;
+		border-radius: 5rem;
+		@include mix.fontStyle(1.5rem, 500, 1.4);
+		letter-spacing: -0.03rem;
+		transition: opacity .3s ease;
 
 		img {
-			width: 1rem;
-			height: 1rem;
+			width: 1.2rem;
+			height: 1.2rem;
+		}
+
+		&:hover {
+			opacity: 0.85;
 		}
 
 		&.white {
@@ -780,183 +740,260 @@
 			font-size: 1.6rem;
 		}
 	}
+
+	&__wide &__title {
+		@include mix.respond-to(pc) {
+			font-size: 4.8rem;
+			letter-spacing: -0.096rem;
+		}
+	}
+
+	&__wide &__desc {
+		@include mix.respond-to(pc) {
+			margin-top: 2.8rem;
+			font-size: 2rem;
+			letter-spacing: -0.04rem;
+		}
+	}
+
+	&__wide &__btn {
+		@include mix.respond-to(pc) {
+			margin-top: 2.2rem;
+		}
+	}
+
+	&__card &__title {
+		@include mix.respond-to(pc) {
+			font-size: 3.4rem;
+			letter-spacing: -0.068rem;
+		}
+	}
+
+	&__card &__desc {
+		@include mix.respond-to(pc) {
+			margin-top: 2.2rem;
+			font-size: 2rem;
+			letter-spacing: -0.04rem;
+		}
+	}
+
+	&__card &__btn {
+		@include mix.respond-to(pc) {
+			margin-top: 1.8rem;
+		}
+	}
 }
 
 //
 // SNS
 //
-.main3-sns {
-	margin-top: 8rem;
-	padding: 6rem 1.6rem;
+.main-sns {
+	padding: 6rem 0;
 	background: #f5f5f5;
 
 	@include mix.respond-to(pc) {
-		margin-top: 16rem;
-		padding: 8rem 0;
+		padding: 10rem 0;
 	}
 
-	&__tt {
-		max-width: 150rem;
-		margin: 0 auto;
-
-		strong {
-			display: block;
-			@include mix.fontStyle(2.4rem, 700, 1.4);
-			color: var.$gray-222;
-		}
-
-		p {
-			margin-top: 1.2rem;
-			@include mix.fontStyle(1.4rem, 400, 1.4);
-			color: var.$gray-333;
-		}
+	&__inner {
+		@extend %main-inner;
 
 		@include mix.respond-to(pc) {
-			strong {
-				font-size: 4.4rem;
-			}
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 4rem;
+		}
+	}
 
-			p {
-				margin-top: 1.4rem;
-				font-size: 2.2rem;
-			}
+	&__title {
+		display: block;
+		@include mix.fontStyle(2.6rem, 700, 1.5);
+		color: var.$gray-222;
+
+		@include mix.respond-to(pc) {
+			font-size: 4.4rem;
+		}
+	}
+
+	&__desc {
+		margin-top: 0.8rem;
+		@include mix.fontStyle(1.5rem, 400, 1.4);
+		color: var.$gray-333;
+
+		@include mix.respond-to(pc) {
+			font-size: 2.2rem;
 		}
 	}
 }
 
-.sns3-card-list {
-	display: flex;
-	flex-direction: column;
-	gap: 1.6rem;
-	margin-top: 4rem;
+.sns-card-list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.2rem;
+	margin-top: 2.4rem;
 
 	@include mix.respond-to(pc) {
-		flex-direction: row;
+		display: flex;
 		gap: 2rem;
-		max-width: 150rem;
-		margin: 4rem auto 0;
+		margin-top: 0;
 	}
 }
 
-.sns3-card {
+.sns-card {
+	$root: &;
 	border-radius: 1.6rem;
 	overflow: hidden;
 
-	a {
-		display: flex;
-		height: 14rem;
+	// flex-basis 로 주면 리스트의 intrinsic 폭이 아이콘 폭까지 줄어드므로 width 로 고정
+	@include mix.respond-to(pc) {
+		width: 40rem;
+		flex-shrink: 0;
+		border-radius: 2rem;
 	}
 
-	&__icon {
-		width: 40%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		img {
-			width: 4.4rem;
-			height: 4.4rem;
-		}
-	}
-
-	&__body {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 0 2rem;
-		background: rgba(36, 36, 36, 0.5);
-		color: var.$white-color;
-
-		strong {
-			@include mix.fontStyle(1.6rem, 700, 1.4);
-		}
-
-		span {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.6rem;
-			margin-top: 1.2rem;
-			@include mix.fontStyle(1.3rem, 500, 1.4);
-
-			img {
-				width: 1rem;
-				height: 1rem;
-			}
-		}
-	}
-
-	&.instagram &__icon {
+	&.instagram {
 		background: #ffcae1;
 	}
 
-	&.youtube &__icon {
+	&.youtube {
 		background: #ffb4b4;
 	}
 
-	@include mix.respond-to(pc) {
-		flex: 1;
-		border-radius: 2rem;
+	&__link {
+		position: relative;
+		display: flex;
+		align-items: center;
+		height: 12rem;
 
-		a {
+		@include mix.respond-to(pc) {
 			height: 18.8rem;
 		}
+	}
 
-		&__icon img {
-			width: 6rem;
-			height: 6rem;
+	&__icon {
+		position: relative;
+		z-index: 1;
+		flex-shrink: 0;
+		width: 6rem;
+		margin-left: 1.6rem;
+
+		img {
+			width: 100%;
+			height: auto;
 		}
 
-		&__body {
+		@include mix.respond-to(pc) {
+			width: 12rem;
+			margin-left: 4rem;
+		}
+	}
+
+	// 어두운 패널은 카드 오른쪽에 고정 폭으로 겹쳐진다 (아이콘 폭에 밀리면 안 됨)
+	&__body {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 1.6rem;
+		width: 50%;
+		padding: 0 1.6rem;
+		background: rgba(36, 36, 36, 0.5);
+
+		@include mix.respond-to(pc) {
+			gap: 4.5rem;
 			padding: 0 3.2rem;
-
-			strong {
-				font-size: 2rem;
-			}
-
-			span {
-				margin-top: 1.6rem;
-				font-size: 1.6rem;
-			}
 		}
+	}
+
+	&.instagram #{$root}__body {
+		@include mix.respond-to(pc) {
+			width: 20rem;
+		}
+	}
+
+	&.youtube #{$root}__body {
+		@include mix.respond-to(pc) {
+			width: 25.5rem;
+		}
+	}
+
+	&__title {
+		@include mix.fontStyle(1.5rem, 700, 1.4);
+		color: var.$white-color;
+
+		@include mix.respond-to(pc) {
+			font-size: 2rem;
+		}
+	}
+
+	&__more {
+		display: inline-flex;
+		align-items: center;
+		gap: 1rem;
+		@include mix.fontStyle(1.3rem, 500, 1.4);
+		color: var.$white-color;
+		letter-spacing: -0.026rem;
+
+		img {
+			width: 1.2rem;
+			height: 1.2rem;
+		}
+
+		@include mix.respond-to(pc) {
+			font-size: 1.6rem;
+		}
+	}
+
+	&__link:hover &__more {
+		text-decoration: underline;
 	}
 }
 
 //
 // 계열사
 //
-.main3-affiliates {
-	margin-top: 8rem;
-	padding: 0 1.6rem;
+.main-affiliate {
+	padding: 6rem 0 8rem;
 
 	@include mix.respond-to(pc) {
-		max-width: 150rem;
-		margin: 16rem auto 0;
-		padding: 0;
+		padding: 8rem 0 14rem;
+	}
+
+	&__inner {
+		@extend %main-inner;
+		position: relative;
 	}
 
 	&__tt {
-		strong {
-			display: block;
-			@include mix.fontStyle(2.4rem, 700, 1.4);
-			color: var.$gray-222;
+		@include mix.respond-to(pc) {
+			position: absolute;
+			left: 0;
+			top: 4rem;
+			width: 57.3rem;
 		}
+	}
 
-		p {
-			margin-top: 1.2rem;
-			@include mix.fontStyle(1.4rem, 400, 1.5);
-			color: var.$gray-333;
-		}
+	&__title {
+		display: block;
+		@include mix.fontStyle(2.6rem, 700, 1.5);
+		color: var.$gray-222;
 
 		@include mix.respond-to(pc) {
-			strong {
-				font-size: 4.4rem;
-			}
+			font-size: 4.4rem;
+		}
+	}
 
-			p {
-				margin-top: 1.4rem;
-				font-size: 2.2rem;
-			}
+	&__desc {
+		margin-top: 0.8rem;
+		@include mix.fontStyle(1.5rem, 400, 1.5);
+		color: var.$gray-333;
+
+		@include mix.respond-to(pc) {
+			font-size: 2.2rem;
 		}
 	}
 
@@ -966,7 +1003,7 @@
 		margin-top: 2.4rem;
 
 		@include mix.respond-to(pc) {
-			margin-top: 3.2rem;
+			margin-top: 4.8rem;
 		}
 	}
 
@@ -974,13 +1011,20 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 1rem;
-		padding: 1rem 1.8rem;
-		border-radius: 10rem;
+		padding: 1.2rem 2rem;
+		border: 1px solid var.$gray-222;
+		border-radius: 5rem;
 		@include mix.fontStyle(1.4rem, 500, 1.4);
+		letter-spacing: -0.028rem;
+		transition: opacity .3s ease;
 
 		img {
-			width: 1.4rem;
-			height: 1.4rem;
+			width: 1.8rem;
+			height: 1.8rem;
+		}
+
+		&:hover {
+			opacity: 0.8;
 		}
 
 		&.dark {
@@ -990,95 +1034,113 @@
 
 		&.outline {
 			background: var.$white-color;
-			border: 1px solid var.$gray-222;
 			color: var.$gray-222;
 		}
 
 		@include mix.respond-to(pc) {
 			font-size: 1.6rem;
+
+			img {
+				width: 2rem;
+				height: 2rem;
+			}
 		}
 	}
 }
 
-.affiliate3-list {
+.affiliate-list {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 1.2rem;
 	margin-top: 3.2rem;
 
+	// 5열 그리드에 계단형으로 배치 (1·2행은 3~5열, 3행은 1~4열)
 	@include mix.respond-to(pc) {
+		width: 133rem;
+		margin: 0 0 0 auto;
 		grid-template-columns: repeat(5, 1fr);
 		gap: 2rem;
-		margin-top: 5rem;
-	}
-}
 
-.affiliate3-card {
+		.affiliate-list__item:nth-child(1),
+		.affiliate-list__item:nth-child(4) {
+			grid-column-start: 3;
+		}
+	}
+
 	&__link {
 		position: relative;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		height: 12rem;
+		display: block;
+		height: 100%;
+		min-height: 12rem;
 		padding: 1.6rem;
-		background: #eee;
-		border-radius: 1.2rem;
+		background: var.$gray-eee;
+		border-radius: 1.6rem;
+		overflow: hidden;
+		transition: background-color .3s ease, box-shadow .3s ease;
+
+		@include mix.respond-to(pc) {
+			min-height: 18rem;
+			padding: 3.2rem;
+			border-radius: 2rem;
+		}
 	}
 
 	&__name {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.4rem;
-		@include mix.fontStyle(1.4rem, 500, 1.4);
+		position: relative;
+		z-index: 1;
+		@include mix.fontStyle(1.5rem, 500, 1.4);
 		color: var.$gray-333;
+
+		@include mix.respond-to(pc) {
+			font-size: 2rem;
+		}
 	}
 
-	&__chevron {
-		width: 1.2rem;
-		height: 1.2rem;
+	&__arrow {
+		position: relative;
+		z-index: 1;
+		width: 1.4rem;
+		height: 1.4rem;
+		margin-left: 0.6rem;
+		vertical-align: -0.1rem;
+
+		@include mix.respond-to(pc) {
+			width: 1.8rem;
+			height: 1.8rem;
+			margin-left: 1rem;
+		}
 	}
 
 	&__icon {
-		align-self: flex-end;
+		position: absolute;
+		right: 1.6rem;
+		bottom: 1.6rem;
 		width: 4rem;
 		height: 4rem;
 		opacity: 0.8;
 
-		img {
-			width: 100%;
-			height: 100%;
-		}
-	}
-
-	&.is-active &__link {
-		background: var.$white-color;
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
-	}
-
-	&.is-active &__name {
-		font-weight: 700;
-		color: #0b50d0;
-	}
-
-	@include mix.respond-to(pc) {
-		&__link {
-			height: 18rem;
-			padding: 2rem;
-			border-radius: 2rem;
-		}
-
-		&__name {
-			font-size: 2rem;
-		}
-
-		&__chevron {
-			width: 1.8rem;
-			height: 1.8rem;
-		}
-
-		&__icon {
+		@include mix.respond-to(pc) {
+			right: 2rem;
+			bottom: 1.4rem;
 			width: 7rem;
 			height: 7rem;
 		}
+	}
+
+	&__item:hover &__link,
+	&__item.is-active &__link {
+		background: #f5f5f5;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+	}
+
+	&__item:hover &__name,
+	&__item.is-active &__name {
+		font-weight: 700;
+		color: $point-color;
+	}
+
+	&__item:hover &__icon,
+	&__item.is-active &__icon {
+		opacity: 1;
 	}
 }

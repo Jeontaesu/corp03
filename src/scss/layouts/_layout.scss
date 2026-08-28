@@ -2,11 +2,12 @@
 @use "../abstracts/functions" as func;
 @use "../abstracts/mixins" as mix;
 
+// 고정 헤더 높이만큼 확보 (.header__inner 높이와 동일하게 유지할 것)
 .wrap {
   padding-top: 6.4rem;
 
   @include mix.respond-to(pc) {
-    padding-top: 10rem;
+    padding-top: 11.2rem;
   }
 }
 
@@ -18,10 +19,10 @@
   @include mix.respond-to(pc) {
     padding: 18rem 7.6% 0;
     margin: 0 auto;
-    max-width: 160rem;
+    max-width: 150rem;
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1500px) {
     padding: 18rem 0 0;
   }
 }

@@ -1,0 +1,8 @@
+mixin galleryItem(img, title, desc)
+	li.gallery-list__item
+		a.gallery-list__link(href="#")
+			.gallery-list__img
+				img(src=img, alt="")
+			.gallery-list__body
+				strong.gallery-list__title= title
+				p.gallery-list__desc= desc

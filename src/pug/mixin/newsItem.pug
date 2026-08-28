@@ -1,0 +1,9 @@
+mixin newsItem(month, day, title, desc)
+	li.news-list__item
+		a.news-list__link(href="#")
+			.news-list__date
+				strong.news-list__day= day
+				span.news-list__month= month
+			.news-list__text
+				strong.news-list__title= title
+				p.news-list__desc= desc
