@@ -36,14 +36,14 @@ block content
 		const affiliateList = [
 			{name: 'NH농협', icon: '../img/icon/icon_nh_logo.svg'},
 			{name: '농협몰', icon: '../img/icon/icon_shopping_bag.svg'},
-			{name: '농림축산식품부', icon: '../img/icon/ic_sprout.svg', modifierClass: 'is-active'},
-			{name: '친환경인증관리', icon: '../img/icon/icon_report.svg'},
+			{name: '농림축산식품부', icon: '../img/icon/icon_pig.svg'},
+			{name: '친환경인증관리', icon: '../img/icon/ic_sprout.svg'},
 			{name: '농산물 가격정보', icon: '../img/icon/icon_price.svg'},
 			{name: '농촌진흥청', icon: '../img/icon/icon_speech.svg'},
 			{name: '농민신문', icon: '../img/icon/icon_paper.svg'},
-			{name: 'NH뱅크', icon: '../img/icon/icon_pig.svg'},
-			{name: '농협경제지주', icon: '../img/icon/icon_won.svg'},
-			{name: '농업관측정보', icon: '../img/icon/icon_graph.svg'}
+			{name: 'NH뱅크', icon: '../img/icon/icon_won.svg'},
+			{name: '농협경제지주', icon: '../img/icon/icon_graph.svg'},
+			{name: '농업관측정보', icon: '../img/icon/icon_paper.svg'}
 		];
 
 	main.main
@@ -65,7 +65,7 @@ block content
 						+statCard(item.modifierClass, item.img, item.label, item.num, item.unit)
 
 		//- 4가지 핵심가치
-		section.main-value
+		section.main-value(data-animation="slideUp")
 			.main-value__inner
 				h3.main-value__title
 					| 미래를 향한 든든한 동행, <br>
@@ -76,7 +76,7 @@ block content
 						+valueCard(valueClass, item.img, item.icon, item.title, item.desc)
 
 		//- News + 갤러리
-		section.main-news
+		section.main-news(data-animation="slideUp")
 			.main-news__inner
 				.main-news__col.news
 					.main-news__tt
@@ -101,7 +101,7 @@ block content
 							+galleryItem(item.img, item.title, item.desc)
 
 		//- 채용 배너
-		section.main-recruit
+		section.main-recruit(data-animation="slideUp")
 			.main-recruit__wide
 				.main-recruit__text
 					h4.main-recruit__title
@@ -137,7 +137,7 @@ block content
 							img(src="../img/icon/icon_link_white.svg", alt="")
 
 		//- SNS
-		section.main-sns
+		section.main-sns(data-animation="slideUp")
 			.main-sns__inner
 				.main-sns__tt
 					strong.main-sns__title OO농협 SNS
@@ -149,7 +149,7 @@ block content
 						+snsCard(item.modifierClass, item.icon, item.title)
 
 		//- 계열사
-		section.main-affiliate
+		section.main-affiliate(data-animation="slideUp")
 			.main-affiliate__inner
 				.main-affiliate__tt
 					strong.main-affiliate__title 계열사 소개
@@ -157,16 +157,14 @@ block content
 						| 대한민국 농협의 미래를 함께하는 농협 계열사와 유관기관의 <br>
 						| 다양한 정보와 서비스를 지금 바로 확인해 보세요.
 					.main-affiliate__links
-						a.main-affiliate__link.dark(href="#")
+						a.main-affiliate__link(href="#")
 							| 농협금융지주
-							img(src="../img/icon/icon_link_white.svg", alt="")
-						a.main-affiliate__link.outline(href="#")
+						a.main-affiliate__link(href="#")
 							| 농협중앙회
-							img(src="../img/icon/icon_link_black.svg", alt="")
 
 				ul.affiliate-list
 					each item in affiliateList
-						+affiliateItem(item.modifierClass, item.name, item.icon)
+						+affiliateItem(item.name, item.icon)
 
 block bottomScripts
 	script(src="../js/main.js")

@@ -1,6 +1,7 @@
-mixin affiliateItem(modifierClass, name, icon)
-	li.affiliate-list__item(class=modifierClass)
+mixin affiliateItem(name, icon)
+	li.affiliate-list__item
 		a.affiliate-list__link(href="#")
-			span.affiliate-list__name= name
-			img.affiliate-list__arrow(src="../img/icon/icon_link_black.svg", alt="")
+			.affiliate-list__title
+				span.affiliate-list__name= name
+				img.affiliate-list__arrow(src="../img/icon/icon_arrow_gray.svg", alt="")
 			img.affiliate-list__icon(src=icon, alt="")

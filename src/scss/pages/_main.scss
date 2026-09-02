@@ -91,13 +91,15 @@ $inner-width: 150rem;
 	}
 
 	&__title {
-		@include mix.fontStyle(2.6rem, 700, 1.5);
+		@include mix.fontStyle(2.4rem, 600, 1.5);
 		color: var.$gray-222;
 		letter-spacing: -0.052rem;
+		width: 100%;
 
 		@include mix.respond-to(pc) {
 			font-size: 5.4rem;
 			letter-spacing: -0.108rem;
+			width: 56.9rem;
 		}
 	}
 
@@ -197,18 +199,18 @@ $inner-width: 150rem;
 // 4가지 핵심가치 (호버 시 펼쳐지는 아코디언 - Figma 603:1771)
 //
 .main-value {
-	padding: 6rem 0;
+	// padding: 6rem 0;
 
-	@include mix.respond-to(pc) {
-		padding: 10rem 0;
-	}
+	// @include mix.respond-to(pc) {
+	// 	padding: 10rem 0;
+	// }
 
 	&__inner {
 		@extend %main-inner;
 	}
 
 	&__title {
-		@include mix.fontStyle(2.4rem, 700, 1.5);
+		@include mix.fontStyle(2.4rem, 600, 1.5);
 		color: var.$gray-222;
 		text-align: center;
 		letter-spacing: -0.048rem;
@@ -869,6 +871,24 @@ $inner-width: 150rem;
 		@include mix.respond-to(pc) {
 			height: 18.8rem;
 		}
+
+		&:hover {
+			.sns-card__icon {
+				img {
+					transform: scale(1.1);
+				}
+			}
+
+			.sns-card__body {
+				width: 25.5rem;
+			}
+
+			.sns-card__more {
+				img {
+					transform: translateX(100%);
+				}
+			}
+		}
 	}
 
 	&__icon {
@@ -881,6 +901,8 @@ $inner-width: 150rem;
 		img {
 			width: 100%;
 			height: auto;
+			transform: scale(1);
+			transition: transform .4s ease;
 		}
 
 		@include mix.respond-to(pc) {
@@ -895,29 +917,20 @@ $inner-width: 150rem;
 		right: 0;
 		top: 0;
 		bottom: 0;
+		z-index: 10;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: 1.6rem;
 		width: 50%;
 		padding: 0 1.6rem;
+		width: 20rem;
 		background: rgba(36, 36, 36, 0.5);
+		transition: width .4s ease;
 
 		@include mix.respond-to(pc) {
 			gap: 4.5rem;
 			padding: 0 3.2rem;
-		}
-	}
-
-	&.instagram #{$root}__body {
-		@include mix.respond-to(pc) {
-			width: 20rem;
-		}
-	}
-
-	&.youtube #{$root}__body {
-		@include mix.respond-to(pc) {
-			width: 25.5rem;
 		}
 	}
 
@@ -941,6 +954,8 @@ $inner-width: 150rem;
 		img {
 			width: 1.2rem;
 			height: 1.2rem;
+			transform: translateX(0);
+			transition: transform .3s ease;
 		}
 
 		@include mix.respond-to(pc) {
@@ -1011,12 +1026,41 @@ $inner-width: 150rem;
 		display: inline-flex;
 		align-items: center;
 		gap: 1rem;
+		position: relative;
 		padding: 1.2rem 2rem;
 		border: 1px solid var.$gray-222;
 		border-radius: 5rem;
 		@include mix.fontStyle(1.4rem, 500, 1.4);
 		letter-spacing: -0.028rem;
 		transition: opacity .3s ease;
+		background: var.$white-color;
+		color: var.$gray-222;
+		overflow: hidden;
+		transition: color .3s ease;
+		z-index: 1;
+
+		&:after {
+			content: "";
+			display: inline-flex;
+			align-items: center;
+			width: 2rem;
+			height: 2rem;
+			background: url('../../img/icon/icon_link_black.svg') no-repeat center / contain;
+			transition: all .3s ease;
+		}
+
+
+		&:before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 0;
+			height: 100%;
+			background: #222;
+			transition: all .3s ease;
+			z-index: -1;
+		}
 
 		img {
 			width: 1.8rem;
@@ -1024,17 +1068,15 @@ $inner-width: 150rem;
 		}
 
 		&:hover {
-			opacity: 0.8;
-		}
+			color: #fff;
 
-		&.dark {
-			background: var.$gray-222;
-			color: var.$white-color;
-		}
+			&:after {
+				background: url('../../img/icon/icon_link_white.svg');
+			}
 
-		&.outline {
-			background: var.$white-color;
-			color: var.$gray-222;
+			&:before {
+				width: 100%;
+			}
 		}
 
 		@include mix.respond-to(pc) {
@@ -1076,13 +1118,19 @@ $inner-width: 150rem;
 		background: var.$gray-eee;
 		border-radius: 1.6rem;
 		overflow: hidden;
-		transition: background-color .3s ease, box-shadow .3s ease;
+		transform: scale(1);
+		transition: background-color .3s ease, box-shadow .3s ease, transform .3s ease;
 
 		@include mix.respond-to(pc) {
 			min-height: 18rem;
 			padding: 3.2rem;
 			border-radius: 2rem;
 		}
+	}
+
+	&__title {
+		display: flex;
+		align-items: center;
 	}
 
 	&__name {
@@ -1131,6 +1179,7 @@ $inner-width: 150rem;
 	&__item.is-active &__link {
 		background: #f5f5f5;
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+		transform: scale(1.05);
 	}
 
 	&__item:hover &__name,

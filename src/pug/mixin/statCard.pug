@@ -5,5 +5,5 @@ mixin statCard(modifierClass, img, label, num, unit)
 		.stat-card__text
 			span.stat-card__label= label
 			p.stat-card__num
-				strong= num
+				strong.stat-card__count(data-count=num.replace(/,/g, ''))= num
 				span= unit
